@@ -1,4 +1,4 @@
-import { createMemoryHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import AboutView from './views/AboutView.vue'
 import EntryView from './views/EntryView.vue'
@@ -11,7 +11,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory('/TileStorage/'),
   routes,
 })
 
