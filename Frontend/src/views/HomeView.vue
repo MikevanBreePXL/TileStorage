@@ -8,9 +8,18 @@ export default {
             store: useTilesStore(),
         }
     },
+    mounted() {
+        this.fetchTiles();
+    },
     computed: {
         tiles() {
-            return this.$store.tiles
+            return this.store.tiles;
+        }
+    },
+    methods: {
+        fetchTiles() {
+            const backend_url = 'http://localhost:3000/tiles';
+            this.store.tiles = fetch(backend_url).then(response => response.json());
         }
     }
 }
@@ -25,8 +34,8 @@ export default {
         </div>
 
         <div class="list d-flex flex-column justify-center align-center">
-            <div v-for="tile in store.tiles" :key="tile.id" class="card">
-                <p>{{ tile.name }}</p>
+            <div v-for="tile in store.tiles" :key="tile.id" class="text-white">
+                <p class="text-white">{{ tile.name }}</p>
             </div>
         </div>
     </div>

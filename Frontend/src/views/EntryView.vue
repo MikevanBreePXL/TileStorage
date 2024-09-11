@@ -6,8 +6,8 @@ import { RouterLink } from 'vue-router';
 <template>
     <div class="home">
         <img src="../assets/TegelsLogo.png" alt="Logo" class="logo mb-6">
-        <RouterLink to="/home"><v-btn color="primary" size="large" rounded="xl" class="my-2">Enter</v-btn></RouterLink>
-        <RouterLink to="/about"><v-btn color="secondary" size="large" rounded="xl">About</v-btn></RouterLink>
+        <v-btn color="primary" size="large" rounded="xl" class="my-2" to="/home">Enter</v-btn>
+        <v-btn color="secondary" size="large" rounded="xl" to="/about">About</v-btn>
     </div>
 </template>
 
