@@ -1,26 +1,27 @@
-<script setup>
-  import { RouterLink, RouterView } from 'vue-router';
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      isOnline: navigator.onLine,
+    }
+  },
+  mounted() {
+    this.isOnline = navigator.onLine
+    window.addEventListener('online', () => this.isOnline = true)
+    window.addEventListener('offline', () => this.isOnline = false)
+  },
+  beforeUnmount() {
+    window.removeEventListener('online', () => this.isOnline = true)
+    window.removeEventListener('offline', () => this.isOnline = false)
+  },
+}
 </script>
 
-<template>  
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-  </nav>
-
-  <RouterView />
+<template>
+  <RouterView v-if="isOnline" />
+  <div v-else class="h-screen d-flex flex-column justify-center align-center">
+    <h1 class="text-orange-darken-3">You are offline</h1>
+    <v-progress-circular color="warning" indeterminate class="mt-4"></v-progress-circular>
+  </div>
 </template>
-
-<style scoped>
-nav {
-  /* Fixate nav bar to top of viewport */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  padding: 0.5rem;
-}
-nav * {
-  margin-inline: 1em;
-}
-</style>

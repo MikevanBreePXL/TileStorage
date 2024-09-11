@@ -13,20 +13,40 @@ import { createVuetify, useTheme } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+const customizedDarkTheme = {
+  colors: {
+    background: '#242424',
+    surface: '#FFFFFF',
+    'surface-bright': '#FFFFFF',
+    'surface-light': '#EEEEEE',
+    'surface-variant': '#424242',
+    'on-surface-variant': '#EEEEEE',
+    primary: '#073077',
+    'primary-darken-1': '#05255b',
+    secondary: '#4086d1',
+    'secondary-darken-1': '#386fb7',
+    error: '#B00020',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FB8C00',
+  }
+};
+
 const vuetify = createVuetify({
     components,
     directives,
     ssr: true,
-  })  
-
-const app = createApp(App)
-app.use(createPinia())
-app.use(router)
-app.use(vuetify, {
+    defaultTheme: 'customizedDarkTheme',
     theme: {
-        primary: '#073077',
-        secondary: '#499ddd',
-        accent: '#eeeeee',
-    }
-})
-app.mount('#app')
+      themes: {
+        customizedDarkTheme,
+      },
+      dark: true,
+    },
+  });
+
+const app = createApp(App);
+app.use(createPinia());
+app.use(router);
+app.use(vuetify);
+app.mount('#app');

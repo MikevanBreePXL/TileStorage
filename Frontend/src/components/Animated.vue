@@ -7,7 +7,7 @@
         <li class="animate__animated slideInLeft animation_4 hide-bullet-point">Vite PWA</li>
         <li class="animate__animated slideInLeft animation_5 hide-bullet-point">Pinia</li>
         <li class="animate__animated slideInLeft animation_6 hide-bullet-point">Tailwind CSS</li>
-        <li class="animate__animated slideInLeft animation_7 hide-bullet-point">DaisyUI</li>
+        <li class="animate__animated slideInLeft animation_7 hide-bullet-point">Vuetify</li>
         <li class="animate__animated slideInLeft animation_8 hide-bullet-point">Animate.css</li>
     </div>
 </template>

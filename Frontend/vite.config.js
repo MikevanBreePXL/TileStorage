@@ -6,15 +6,6 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
-      server: {
-        https: {
-          key: './localhost-key.pem', // Path to the key file
-          cert: './localhost.pem',    // Path to the certificate file
-        }
-      },
-      devOptions: {
-        enabled: true, // Enable the service worker in development mode
-      },
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
@@ -22,9 +13,8 @@ export default defineConfig({
         short_name: 'VBTegels',
         description: 'A custom Vue 3 SPA',
         theme_color: '#073077',
-        start_url: '/',
-        display: 'standalone',
-        background_color: '#212121',
+        start_url: '/TileStorage/',
+        background_color: '#242424',
         icons: [
           {
             src: "/pwa-192x192.png",
