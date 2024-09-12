@@ -17,9 +17,13 @@ export default {
         }
     },
     methods: {
-        fetchTiles() {
-            const backend_url = 'http://localhost:3000/tiles';
-            this.store.tiles = fetch(backend_url).then(response => response.json());
+        async fetchTiles() {
+            const backend_url = 'https://185.92.69.118:50160/tiles';
+            const response = await fetch(backend_url);
+            const tiles_list = response.json();
+
+            console.log("Tiles retrieved:");
+            console.log(tiles_list.json());
         }
     }
 }
