@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<start-class>nl.nao.tilestorage.TileStorageBackendApplication</start-class>
 	</properties>
 	<dependencies>
 
