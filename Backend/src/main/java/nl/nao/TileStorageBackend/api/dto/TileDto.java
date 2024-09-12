@@ -6,7 +6,7 @@ public record TileDto(
     double width,
     double length,
     double squareMetersPerBox,
-    double amountPerBox,
+    double amountOfBoxes,
     double totalSquareMeters
 ) {
 }

@@ -10,6 +10,6 @@ public class TileMapper {
     }
 
     public static TileDto mapEntityToDto(Tile entity) {
-        return new TileDto(entity.getId(), entity.getName(), entity.getWidth(), entity.getLength(), entity.getSquareMetersPerBox(), entity.getAmountPerBox(), entity.getTotalSquareMeters());
+        return new TileDto(entity.getId(), entity.getName(), entity.getWidth(), entity.getLength(), entity.getSquareMetersPerBox(), entity.getAmountOfBoxes(), entity.getTotalSquareMeters());
     }
 }

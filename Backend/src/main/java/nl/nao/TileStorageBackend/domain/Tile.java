@@ -15,19 +15,19 @@ public class Tile {
     private double width;
     private double length;
     private double squareMetersPerBox;
-    private double amountPerBox;
+    private double amountOfBoxes;
     private double totalSquareMeters;
 
     public Tile() {
         // JPA Only!
     }
 
-    public Tile(String name, double width, double length, double squareMetersPerBox, double amountPerBox, double totalSquareMeters) {
+    public Tile(String name, double width, double length, double squareMetersPerBox, double amountOfBoxes, double totalSquareMeters) {
         this.name = name;
         this.width = width;
         this.length = length;
         this.squareMetersPerBox = squareMetersPerBox;
-        this.amountPerBox = amountPerBox;
+        this.amountOfBoxes = amountOfBoxes;
         this.totalSquareMeters = totalSquareMeters;
     }
 
@@ -67,12 +67,12 @@ public class Tile {
         this.squareMetersPerBox = squareMetersPerBox;
     }
 
-    public double getAmountPerBox() {
-        return amountPerBox;
+    public double getAmountOfBoxes() {
+        return amountOfBoxes;
     }
 
-    public void setAmountPerBox(double amountPerBox) {
-        this.amountPerBox = amountPerBox;
+    public void setAmountOfBoxes(double amoungOfBoxes) {
+        this.amountOfBoxes = amoungOfBoxes;
     }
 
     public double getTotalSquareMeters() {

@@ -5,9 +5,14 @@ export const useTilesStore = defineStore('tiles', {
   // other options...
   state: () => ({
     tiles: [
-      { id: 1, name: 'AB KIMBERLEY' },
-      { id: 2, name: 'Azteca Delhi 20 ash' },
-      { id: 3, name: 'Azteca Moonlight Lux 120 black' },
+      { id: 1, name: 'AB KIMBERLEY', width: 30, length: 30 },
+      { id: 2, name: 'Azteca Delhi 20 ash', width: 20, length: 80 },
+      { id: 3, name: 'Azteca Moonlight Lux 120 black', width: 40, length: 120 },
     ],
   }),
+  getters: {
+    getTiles(state) {
+      return state.tiles
+    },
+  },
 })
