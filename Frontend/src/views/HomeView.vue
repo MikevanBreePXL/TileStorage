@@ -24,7 +24,7 @@ export default {
     },
     methods: {
         async fetchTiles() {
-            const backend_url = 'https://tilestorage.onrender.com/tiles';
+            const backend_url = 'http://185.92.69.118:50160/tiles';
             const response = await fetch(backend_url);
             const tiles_list = await response.json();
 
