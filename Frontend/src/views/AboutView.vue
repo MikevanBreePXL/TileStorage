@@ -5,8 +5,8 @@ import AnimatedFrameworks from '../components/AnimatedFrameworks.vue';
 
 <template>
   <topLogoBar />
-    <div class="about mb-2">
-        <h1>About me</h1>
+    <div class="about mb-2 mx-1">
+        <h1>Over deze website</h1>
     </div>
 
     <AnimatedFrameworks />
@@ -15,6 +15,6 @@ import AnimatedFrameworks from '../components/AnimatedFrameworks.vue';
 <style scoped>
 .about {
   text-align: center;
-  margin: 1em;
+  font-size: 80%;
 }
 </style>

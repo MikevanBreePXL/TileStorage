@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import AboutView from './views/AboutView.vue'
 import EntryView from './views/EntryView.vue'
@@ -6,14 +6,14 @@ import HomeView from './views/HomeView.vue'
 import TileDetails from './views/TileDetails.vue'
 
 const routes = [
-  { path: '/', component: EntryView },
-  { path: '/home', component: HomeView },
+  { path: '/entry', component: EntryView },
+  { path: '/', component: HomeView },
   { path: '/about', component: AboutView },
-  { path: '/tileDetails', component: TileDetails },
+  { name:'TileDetails', path: '/info/:tileId', component: TileDetails, props: true },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory('/TileStorage/'), 
+  history: createWebHistory('/TileStorage/'), 
   routes,
 })
 

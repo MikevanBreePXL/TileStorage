@@ -1,20 +1,24 @@
 <template>
     <div class="flex justify-center align-center">
-        <h4 class="text-center mb-2">This website is made using:</h4>
-        <ul class="ga-2">
-            <a href="https://vuejs.org/" target="_blank"><li class="animate__animated slideInLeft animation_1 button_style">Vue 3</li></a>
-            <a href="https://router.vuejs.org/" target="_blank"><li class="animate__animated slideInLeft animation_2 button_style">Vue Router</li></a>
-            <a href="https://vitejs.dev/" target="_blank"><li class="animate__animated slideInLeft animation_3 button_style">Vite</li></a>
-            <a href="https://vite-pwa-org.netlify.app/" target="_blank"><li class="animate__animated slideInLeft animation_4 button_style">Vite PWA</li></a>
-            <a href="https://pinia.vuejs.org/" target="_blank"><li class="animate__animated slideInLeft animation_5 button_style">Pinia</li></a>
-            <a href="https://tailwindcss.com/" target="_blank"><li class="animate__animated slideInLeft animation_6 button_style">Tailwind CSS</li></a>
-            <a href="https://vuetifyjs.com/" target="_blank"><li class="animate__animated slideInLeft animation_7 button_style">Vuetify</li></a>
-            <a href="https://animate.style/" target="_blank"><li class="animate__animated slideWithAttention animation_8 button_style">Animate.css</li></a>
+        <h4 class="text-center mb-2">De volgende technologieën zijn gebruikt:</h4>
+        <ul class="ga-2" notranslate>
+            <a href="https://vuejs.org/" target="_blank" class="d-flex flex-row"><li class="animate__animated slideInLeft animation_1 button_style">Vue 3 <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
+            <a href="https://router.vuejs.org/" target="_blank"><li class="animate__animated slideInLeft animation_2 button_style">Vue Router <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
+            <a href="https://vitejs.dev/" target="_blank"><li class="animate__animated slideInLeft animation_3 button_style">Vite <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
+            <a href="https://vite-pwa-org.netlify.app/" target="_blank"><li class="animate__animated slideInLeft animation_4 button_style">Vite PWA <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
+            <a href="https://pinia.vuejs.org/" target="_blank"><li class="animate__animated slideInLeft animation_5 button_style">Pinia <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
+            <a href="https://tailwindcss.com/" target="_blank"><li class="animate__animated slideInLeft animation_6 button_style">Tailwind CSS <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
+            <a href="https://vuetifyjs.com/" target="_blank"><li class="animate__animated slideInLeft animation_7 button_style">Vuetify <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
+            <a href="https://animate.style/" target="_blank"><li class="animate__animated slideWithAttention animation_8 button_style">Animate.css <font-awesome-icon class="fa" icon="fa-solid fa-arrow-up-right-from-square"></font-awesome-icon></li></a>
         </ul>
     </div>
 </template>
 
 <style scoped>
+.fa {
+    font-size: 60%;
+    margin-bottom: 6%;
+}
 .slideWithAttention {
   visibility: hidden;
   transform: translate3d(-100vw, 0, 0); /* Start off-screen */
