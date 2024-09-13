@@ -44,7 +44,7 @@ export default {
             <NewTileCard :to="{ name: 'TileDetails', params: { tileId: 'new' }}" />
             <div v-for="tile in this.tiles" :key="tile.id">
                 <RouterLink :to="{ name: 'TileDetails', params: { tileId: tile.id }}">
-                    <CustomTileCard height="100%" :name="tile.tilename" :tileWidth="tile.width" :tileLength="tile.length" :squareMetersPerBox="tile.squareMetersPerBox" :amountPerBox="tile.amountPerBox" :totalSquareMeters="tile.totalSquareMeters" />
+                    <CustomTileCard height="100%" :name="tile.tilename" :tileWidth="tile.width" :tileLength="tile.length" :amountOfBoxes="tile.amountOfBoxes" :squareMetersPerBox="((Math.round(100 * tile.squareMetersPerBox)) / 100.0)" :totalSquareMeters="tile.totalSquareMeters.toFixed(2)" />
                 </RouterLink>
             </div>
         </div>
