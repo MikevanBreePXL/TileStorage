@@ -8,9 +8,7 @@ export default {
     <v-card
         min-width="90%"
         max-width="90%"
-        height="100%"
-        to="/newTile"
-        >
+        height="100%">
         <v-card-text>
             <div class="text-center">
                 <v-icon size="x-large" icon="fas fa-plus" />
