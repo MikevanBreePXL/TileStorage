@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import Animated from '../components/Animated.vue';
+import TopLogoBar from '../components/TopLogoBar.vue';
+import AnimatedFrameworks from '../components/AnimatedFrameworks.vue';
 </script>
 
 <template>
-    <div class="about">
+  <topLogoBar />
+    <div class="about mb-2">
         <h1>About me</h1>
     </div>
 
-    <Animated />
+    <AnimatedFrameworks />
 </template>
 
 <style scoped>
