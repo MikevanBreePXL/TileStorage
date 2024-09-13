@@ -7,8 +7,9 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
+      injectRegister: 'auto',
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
         name: 'van Bree Tegels',
         short_name: 'VBTegels',
