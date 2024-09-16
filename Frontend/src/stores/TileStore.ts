@@ -18,6 +18,16 @@ export const useTilesStore = defineStore('tiles', {
   actions: {
     getTileById(id) {
       return this.tiles.find(tile => tile.id === id)
+    },
+    saveTile(tile) {
+      console.log("Saving tile...");
+      console.log(tile);
+      let foundIndex = this.tiles.findIndex(tile => tile.id === tile.id);
+      if (foundIndex === -1) {
+        this.tiles.push(tile);
+      } else {
+        this.tiles[foundIndex] = tile;
+      }
     }
   },
 })
