@@ -4,11 +4,7 @@ import { defineStore } from 'pinia'
 export const useTilesStore = defineStore('tiles', {
   // other options...
   state: () => ({
-    tiles: [
-      { id: 1, tilename: 'AB KIMBERLEY', width: 30, length: 30, squareMetersPerBox: 2.128, amountOfBoxes: 10, totalSquareMeters: 21.28 },
-      { id: 2, tilename: 'Azteca Delhi 20 ash', width: 20, length: 80, squareMetersPerBox: 2.125, amountOfBoxes: 4, totalSquareMeters: 8.5 },
-      { id: 3, tilename: 'Azteca Moonlight Lux 120 black', width: 40, length: 120, squareMetersPerBox: 2.125, amountOfBoxes: 3, totalSquareMeters: 6.375 },
-    ],
+    tiles: []
   }),
   getters: {
     getTiles(state) {
@@ -23,11 +19,15 @@ export const useTilesStore = defineStore('tiles', {
       console.log("Saving tile...");
       console.log(tile);
       if (tile.id === 0) {
+        console.log("te foq, dis new one?");
         tile.id = this.tiles.length + 1;
         this.tiles.push(tile);
       } else {
-        let foundIndex = this.tiles.findIndex(tile => tile.id === tile.id);
-        this.tiles[foundIndex] = tile;
+        let foundIndex = this.tiles.findIndex(searchTile => searchTile.id === tile.id);
+        console.log("found index:"); 
+        console.log(foundIndex);
+        console.log("Saving to:");
+        console.log(this.tiles[foundIndex]);
       }
     },
     saveData() {
@@ -38,6 +38,12 @@ export const useTilesStore = defineStore('tiles', {
       let data = localStorage.getItem('tiles');
       if (data) {
         this.tiles = JSON.parse(data);
+      } else {
+        this.tiles = [
+          { id: 1, tilename: 'AB KIMBERLEY', width: 30, length: 30, squareMetersPerBox: 2.128, amountOfBoxes: 10, totalSquareMeters: 21.28 },
+          { id: 2, tilename: 'Azteca Delhi 20 ash', width: 20, length: 80, squareMetersPerBox: 2.125, amountOfBoxes: 4, totalSquareMeters: 8.5 },
+          { id: 3, tilename: 'Azteca Moonlight Lux 120 black', width: 40, length: 120, squareMetersPerBox: 2.125, amountOfBoxes: 3, totalSquareMeters: 6.375 },
+        ];
       }
     },
   },
