@@ -115,6 +115,7 @@ export default {
         </div>
 
         <v-text-field
+          class="align-self-end"
           prefix="€"
           type="number" min="0.00" max="10000.00" step="0.01"
           name="totalPrice"
