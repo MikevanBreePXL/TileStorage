@@ -40,9 +40,9 @@ export const useTilesStore = defineStore('tiles', {
         this.tiles = JSON.parse(data);
       } else {
         this.tiles = [
-          { id: 1, tilename: 'AB KIMBERLEY', width: 30, length: 30, squareMetersPerBox: 2.128, amountOfBoxes: 10, totalSquareMeters: 21.28 },
-          { id: 2, tilename: 'Azteca Delhi 20 ash', width: 20, length: 80, squareMetersPerBox: 2.125, amountOfBoxes: 4, totalSquareMeters: 8.5 },
-          { id: 3, tilename: 'Azteca Moonlight Lux 120 black', width: 40, length: 120, squareMetersPerBox: 2.125, amountOfBoxes: 3, totalSquareMeters: 6.375 },
+          { id: 1, tilename: 'AB KIMBERLEY', width: 30, length: 30, squareMetersPerBox: 2.128, amountOfBoxes: 10, totalSquareMeters: 21.28, totalPrice: 0.00 },
+          { id: 2, tilename: 'Azteca Delhi 20 ash', width: 20, length: 80, squareMetersPerBox: 2.125, amountOfBoxes: 4, totalSquareMeters: 8.5, totalPrice: 0.00 },
+          { id: 3, tilename: 'Azteca Moonlight Lux 120 black', width: 40, length: 120, squareMetersPerBox: 2.125, amountOfBoxes: 3, totalSquareMeters: 6.375, totalPrice: 0.00 },
         ];
       }
     },

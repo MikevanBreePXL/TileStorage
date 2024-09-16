@@ -19,6 +19,7 @@ export default {
         squareMetersPerBox: 0,
         amountOfBoxes: 0,
         totalSquareMeters: 0,
+        totalPrice: 0,
       };
     } else {
       tile = Object.assign({}, store.getTileById(parseInt(this.tileId)));
@@ -54,7 +55,7 @@ export default {
 };
 </script>
 
-<template>
+<template dark>
   <div id="details-page" class="details-page d-flex flex-column">
     <TopLogoBar />
     <div id="details-form" class="animate__animated">
@@ -101,7 +102,7 @@ export default {
 
         <div class="total-square-meters d-flex flex-row align-start w-100">
           <div class="d-flex flex-column text-center justify-center align-center mr-5">
-            <v-checkbox-btn v-model="isTotalCalculated" @change="CalculateTotalSquareMeters()" hide-details></v-checkbox-btn>
+            <v-checkbox-btn color="primary" v-model="isTotalCalculated" @change="CalculateTotalSquareMeters()"></v-checkbox-btn>
             <span style="color: #bbb;">Berekend</span>
           </div>
           <v-text-field
@@ -112,13 +113,23 @@ export default {
             v-model="this.tile.totalSquareMeters"
           ></v-text-field>
         </div>
+
+        <v-text-field
+          prefix="€"
+          type="number" min="0.00" max="10000.00" step="0.01"
+          name="totalPrice"
+          label="totaalprijs"
+          width="100%"
+          v-model="this.tile.totalPrice"
+        >
+      </v-text-field>
       </div>
     </div>
 
     <div class="buttons w-90 mx-auto d-flex flex-row justify-space-between" z-index="2">
-      <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3" dark>Annuleren</v-btn></a>
-      <v-btn id="save-button" width="42vw" color="green-darken-2" dark :onclick="saveTile">
-        <v-btn-text>Opslaan</v-btn-text>
+      <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">Annuleren</v-btn></a>
+      <v-btn id="save-button" width="42vw" color="green-darken-2" :onclick="saveTile">
+        Opslaan
       </v-btn>
     </div>
   </div>
