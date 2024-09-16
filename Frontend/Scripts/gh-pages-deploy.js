@@ -15,8 +15,8 @@ import fs from "fs";
     await execa("git", ["--work-tree", folderName, "commit", "-m", "gh-pages deploy build"]);
     console.log("Pushing to gh-pages...");
     await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
-    await execa("rmdir", ["/s",  folderName]);
     await execa("git", ["checkout", "-f", "main"]);
+    await execa("rmdir", ["/s",  "./" + folderName]);
     console.log("Successfully deployed, check your settings");
   } catch (e) {
     // eslint-disable-next-line no-console

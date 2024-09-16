@@ -23,6 +23,9 @@ export default {
       };
     } else {
       tile = Object.assign({}, store.getTileById(parseInt(this.tileId)));
+      if (tile.totalPrice === undefined) {
+        tile.totalPrice = 0;
+      }
     }
     console.log(tile);
 
