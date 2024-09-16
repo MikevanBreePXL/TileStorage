@@ -4,6 +4,7 @@ import fs from "fs";
 
 (async () => {
   try {
+    await execa("git", ["push", "origin", "--delete", "gh-pages"]); 
     await execa("git", ["checkout", "--orphan", "gh-pages"]);
     // eslint-disable-next-line no-console
     console.log("Building started...");
@@ -11,12 +12,11 @@ import fs from "fs";
     // Understand if it's dist or build folder
     const folderName = fs.existsSync("dist") ? "dist" : "build";
     await execa("git", ["--work-tree", folderName, "add", "--all"]);
-    await execa("git", ["--work-tree", folderName, "commit", "-m", "gh-pages"]);
+    await execa("git", ["--work-tree", folderName, "commit", "-m", "gh-pages deploy build"]);
     console.log("Pushing to gh-pages...");
     await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
-    await execa("rmdir ", ["/s",  "\"" + folderName + "\""]);
-    await execa("git", ["checkout", "-f", "master"]);
-    await execa("git", ["branch", "-D", "gh-pages"]);
+    await execa("rmdir ", ["/s",  folderName]);
+    await execa("git", ["checkout", "-f", "main"]);
     console.log("Successfully deployed, check your settings");
   } catch (e) {
     // eslint-disable-next-line no-console
