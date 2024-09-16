@@ -19,10 +19,10 @@ export default {
         </v-card-title>
         <v-card-text class="text-center card-text pb-1">
             <div class="d-flex flex-row justify-space-between align-center">
-                <v-col class="px-0 justify-start text-start" cols="4"><p>{{ tileWidth }}x{{ tileLength }}</p></v-col>
+                <v-col class="px-0 justify-start text-start" cols="4"><p>{{ tileWidth }} x {{ tileLength }}</p></v-col>
                 <v-col class="px-0 text-end" cols="2"><span v-if="amountOfBoxes != null">{{  amountOfBoxes }}x</span></v-col>
                 <v-col class="px-0" cols="3"><span v-if="squareMetersPerBox != null">{{ squareMetersPerBox }}m<sup>2</sup></span></v-col>
-                <v-col class="px-0" cols="3"><span v-if="totalSquareMeters != null">{{ totalSquareMeters }}m<sup>2</sup></span></v-col>
+                <v-col class="px-0" cols="3"><span v-if="totalSquareMeters != null">{{ totalSquareMeters }}<div>m<sup>2</sup></div></span></v-col>
             </div>
         </v-card-text>
     </v-card>
