@@ -25,9 +25,5 @@ export default {
 </script>
 
 <template>
-  <RouterView v-if="isOnline" />
-  <div v-else class="h-screen d-flex flex-column justify-center align-center">
-    <h1 class="text-orange-darken-3">You are offline</h1>
-    <v-progress-circular color="warning" indeterminate class="mt-4"></v-progress-circular>
-  </div>
+  <RouterView />  <
 </template>
