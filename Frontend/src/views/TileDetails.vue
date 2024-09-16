@@ -21,7 +21,7 @@ export default {
         totalSquareMeters: 0,
       };
     } else {
-      tile = store.getTileById(parseInt(this.tileId));
+      tile = Object.assign({}, store.getTileById(parseInt(this.tileId)));
     }
     console.log(tile);
 
@@ -42,7 +42,7 @@ export default {
         this.$router.back();
       }, 1000);
     },
-    CalculateTotalSquareMeters(event) {
+    CalculateTotalSquareMeters() {
       if (this.isTotalCalculated) {
         this.tile.totalSquareMeters = parseFloat(this.tile.squareMetersPerBox) * parseFloat(this.tile.amountOfBoxes);
         console.log(this.tile.totalSquareMeters);
@@ -99,7 +99,7 @@ export default {
 
       <div class="total-square-meters d-flex flex-row align-start w-100">
         <div class="d-flex flex-column text-center justify-center align-center mr-5">
-          <v-checkbox-btn v-model="isTotalCalculated" @change="CalculateTotalSquareMeters" hide-details></v-checkbox-btn>
+          <v-checkbox-btn v-model="isTotalCalculated" @change="CalculateTotalSquareMeters()" hide-details></v-checkbox-btn>
           <span style="color: #bbb;">Berekend</span>
         </div>
         <v-text-field
