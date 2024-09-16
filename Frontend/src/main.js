@@ -19,17 +19,12 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
 const customizedDarkTheme = {
+  dark: false,
   colors: {
-    background: '#242424',
-    surface: '#FFFFFF',
-    'surface-bright': '#FFFFFF',
-    'surface-light': '#EEEEEE',
-    'surface-variant': '#424242',
-    'on-surface-variant': '#EEEEEE',
+    background: '#161616',
+    surface: '#eee',
+    'on-surface': '#262626',
     primary: '#073077',
-    'primary-darken-1': '#05255b',
-    secondary: '#4086d1',
-    'secondary-darken-1': '#386fb7',
     error: '#B00020',
     info: '#2196F3',
     success: '#4CAF50',
@@ -41,20 +36,19 @@ const vuetify = createVuetify({
     components,
     directives,
     ssr: true,
-    defaultTheme: 'customizedDarkTheme',
     theme: {
+      defaultTheme: 'customizedDarkTheme',
       themes: {
         customizedDarkTheme,
       },
-      dark: true,
     },
     icons: {
       defaultSet: 'fa',
       aliases,
       sets: {
-        fa,
+        fa
       },
-    },  
+    }
   });
 
 const app = createApp(App);
