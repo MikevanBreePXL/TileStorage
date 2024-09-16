@@ -8,8 +8,9 @@ import { useTilesStore } from '../stores/TileStore';
 export default {
     name: 'HomeView',
     data() {
+        let store = useTilesStore();
         return {
-            store: useTilesStore(),
+            store,
         }
     },
     components: {
@@ -19,22 +20,23 @@ export default {
         TileInfoCard,
     },
     mounted() {
-        // this.fetchTiles();
-    },
-    computed: {
-        tiles() {
-            return this.store.getTiles;
+        // Listen for visibility change (minimized/visible)
+        document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            this.store.saveData();  // Save when the app is minimized
+        } else if (document.visibilityState === 'visible') {
+            this.store.loadData();  // Load when the app becomes visible again
         }
+        });
     },
-    methods: {
-        async fetchTiles() {
-            const backend_url = 'http://185.92.69.118:50160/tiles';
-            const response = await fetch(backend_url);
-            const tiles_list = await response.json();
-
-            console.log("Tiles retrieved:");
-            console.log(tiles_list);
+    beforeUnmount() {
+        document.removeEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            this.store.saveData();  // Save when the app is minimized
+        } else if (document.visibilityState === 'visible') {
+            this.store.loadData();  // Load when the app becomes visible again
         }
+        });
     }
 }
 </script>
@@ -45,9 +47,9 @@ export default {
         <div class="list d-flex flex-column ga-2 justify-center align-center">
             <NewTileCard :to="{ name: 'TileDetails', params: { tileId: 'new' }}" />
             <TileInfoCard />
-            <div v-for="tile in this.tiles" :key="tile.id">
+            <div v-for="tile in this.store.tiles" :key="tile.id">
                 <RouterLink :to="{ name: 'TileDetails', params: { tileId: tile.id }}">
-                    <CustomTileCard height="100%" :name="tile.tilename" :tileWidth="tile.width" :tileLength="tile.length" :amountOfBoxes="tile.amountOfBoxes" :squareMetersPerBox="((Math.round(100 * tile.squareMetersPerBox)) / 100.0)" :totalSquareMeters="tile.totalSquareMeters.toFixed(2)" />
+                    <CustomTileCard height="100%" :name="tile.tilename" :tileWidth="parseFloat(tile.width)" :tileLength="parseFloat(tile.length)" :amountOfBoxes="parseFloat(tile.amountOfBoxes)" :squareMetersPerBox="((Math.round(100 * tile.squareMetersPerBox)) / 100.0)" :totalSquareMeters="((Math.round(100 * tile.totalSquareMeters)) / 100.0)" />
                 </RouterLink>
             </div>
         </div>

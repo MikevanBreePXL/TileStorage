@@ -22,12 +22,23 @@ export const useTilesStore = defineStore('tiles', {
     saveTile(tile) {
       console.log("Saving tile...");
       console.log(tile);
-      let foundIndex = this.tiles.findIndex(tile => tile.id === tile.id);
-      if (foundIndex === -1) {
+      if (tile.id === 0) {
+        tile.id = this.tiles.length + 1;
         this.tiles.push(tile);
       } else {
+        let foundIndex = this.tiles.findIndex(tile => tile.id === tile.id);
         this.tiles[foundIndex] = tile;
       }
-    }
+    },
+    saveData() {
+      console.log("Saving data...");
+      localStorage.setItem('tiles', JSON.stringify(this.tiles));
+    },
+    loadData() {
+      let data = localStorage.getItem('tiles');
+      if (data) {
+        this.tiles = JSON.parse(data);
+      }
+    },
   },
 })
