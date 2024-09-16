@@ -1,8 +1,11 @@
 <script>
+import { useTilesStore } from './stores/TileStore';
+
 export default {
   name: 'App',
   data() {
     return {
+      store: useTilesStore(),
       isOnline: navigator.onLine,
     }
   },
@@ -15,6 +18,9 @@ export default {
     window.removeEventListener('online', () => this.isOnline = true)
     window.removeEventListener('offline', () => this.isOnline = false)
   },
+  created: function () {
+    this.store.loadData();
+  }
 }
 </script>
 
