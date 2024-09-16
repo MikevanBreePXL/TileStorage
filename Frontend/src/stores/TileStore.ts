@@ -27,7 +27,7 @@ export const useTilesStore = defineStore('tiles', {
         console.log("found index:"); 
         console.log(foundIndex);
         console.log("Saving to:");
-        console.log(this.tiles[foundIndex]);
+        console.log(this.tiles[foundIndex] = tile);
       }
     },
     saveData() {

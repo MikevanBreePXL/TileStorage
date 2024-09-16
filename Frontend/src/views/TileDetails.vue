@@ -23,7 +23,11 @@ export default {
       };
     } else {
       tile = Object.assign({}, store.getTileById(parseInt(this.tileId)));
+      console.log("total price:");
+      console.log(tile.totalPrice);
       if (tile.totalPrice === undefined) {
+        console.log("adding total price property to tile...");
+        tile["totalPrice"] = 0;
         tile.totalPrice = 0;
       }
     }
@@ -42,6 +46,9 @@ export default {
     saveTile() {
       let form = document.getElementById('details-form');
       form.classList.add('fadeOutRight');
+      this.tile.totalPrice = parseFloat(this.tile.totalPrice);
+      console.log("saved result:");
+      console.log(this.tile);
       this.store.saveTile(this.tile);
 
       setTimeout(() => {
