@@ -33,6 +33,11 @@ p {
     font-family: 'Montserrat', sans-serif;
     font-size: 150%;
 }
+span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 125%;
+}
 .card-text {
     margin-top: -0.8em;
 }
