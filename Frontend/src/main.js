@@ -43,7 +43,7 @@ const vuetify = createVuetify({
     directives,
     ssr: true,
     theme: {
-      defaultTheme: 'customizedDarkTheme',
+      defaultTheme: 'light',
       themes: {
         customizedDarkTheme,
       },
