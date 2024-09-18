@@ -4,16 +4,6 @@ import fs from "fs";
 
 (async () => {
   try {
-    console.log("Deleting old gh-pages build...");
-    try {
-      await execa("git", ["branch", "-D", "gh-pages"]); 
-    } catch (e) {
-    }
-    try {
-      await execa("git", ["checkout", "--orphan", "gh-pages"]);
-    } catch (e) {
-    }
-
     // eslint-disable-next-line no-console
     console.log("Building started...");
     await execa("npm", ["run", "build"]);
@@ -21,6 +11,15 @@ import fs from "fs";
     const folderName = fs.existsSync("dist") ? "dist" : "build";
     await execa("git", ["--work-tree", folderName, "add", "--all"]);
     await execa("git", ["--work-tree", folderName, "commit", "-m", "gh-pages deploy build"]);
+    console.log("Deleting old gh-pages build...");
+    try {
+      await execa("git", ["branch", "-D", "gh-pages"]);
+    } catch (e) {
+    }
+    try {
+      await execa("git", ["checkout", "--orphan", "gh-pages"]);
+    } catch (e) {
+    }
     console.log("Pushing to gh-pages...");
     await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
     await execa("git", ["checkout", "-f", "main"]);
