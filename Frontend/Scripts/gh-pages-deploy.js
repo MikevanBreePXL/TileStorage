@@ -22,7 +22,7 @@ import fs from "fs";
     }
     await execa("git", ["checkout", "--orphan", "gh-pages"]);
     console.log("Pushing to gh-pages...");
-    await execa("git", ["subtree", "push", "--prefix=Frontend/dist", "origin", "gh pages"], { cwd: ".." });
+    await execa("git", ["subtree", "push", "--prefix=Frontend/dist", "origin", "gh-pages"], { cwd: ".." });
     await execa("git", ["checkout", "-f", "main"]);
     try {
       await execa("rmdir", [folderName, "/s", "/q"]);
