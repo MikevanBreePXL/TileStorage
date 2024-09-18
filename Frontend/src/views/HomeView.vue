@@ -45,12 +45,12 @@ export default {
   <div class="home">
     <TopLogoBar/>
     <div class="list d-flex flex-column ga-2 justify-center align-center">
-      <NewTileCard :to="{ name: 'TileDetails', params: { tileId: 'new' }}"/>
-      <TileInfoCard/>
+      <NewTileCard class="animate__animated fadeInLeft" :to="{ name: 'TileDetails', params: { tileId: 'new' }}"/>
+      <TileInfoCard class="animate__animated fadeInLeft" style="animation-delay: 250ms"/>
       <div v-for="tile in this.store.tiles" :key="tile.id">
         <RouterLink :to="{ name: 'TileDetails', params: { tileId: tile.id }}">
-          <CustomTileCard :style="'animation-delay: ' + (250 * tile.id - 150) + 'ms'"
-                          class="animate__animated fadeInLeft" height="100%" :name="tile.tilename"
+          <CustomTileCard class="animate__animated fadeInLeft" :style="'animation-delay: ' + (250 * tile.id + 250) + 'ms'"
+                          height="100%" :name="tile.tilename"
                           :tileWidth="parseFloat(tile.width)" :tileLength="parseFloat(tile.length)"
                           :amountOfBoxes="parseFloat(tile.amountOfBoxes)"
                           :squareMetersPerBox="((Math.round(100 * tile.squareMetersPerBox)) / 100.0)"
