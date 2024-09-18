@@ -149,12 +149,11 @@ export default {
         ></v-text-field>
       
 
-        <div class="text-center pa-4">
+        <div class="py-3 w-100">
           <v-btn
             @click="dialog = true"
             prepend-icon="fa-solid fa-trash-can"
             text="Verwijder tegel"
-            class="ml-0 mr-auto"
             color="red-darken-3"
           ></v-btn>
 
@@ -167,16 +166,14 @@ export default {
               prepend-icon="fa-solid fa-trash-can"
               text="Weet je zeker dat je de tegel wilt verwijderen uit de lijst?"
               title="Verwijderen bevestigen"
-              color="red"
+              color="red-darken-3"
             >
               <template v-slot:actions>
                 <v-btn
-                  class="ms-auto"
                   text="Verwijderen"
                   @click="removeTile"
                 ></v-btn>
                 <v-btn
-                  class="ms-auto"
                   text="Annuleren"
                   @click="dialog = false"
                 ></v-btn>
