@@ -5,30 +5,26 @@ import fs from "fs";
 (async () => {
   try {
     // eslint-disable-next-line no-console
-    console.log("Building started...");
-    await execa("npm", ["run", "build"]);
-    // Understand if it's dist or build folder
-    const folderName = fs.existsSync("dist") ? "dist" : "build";
-    await execa("git", ["add", folderName, "--force"]);
-    await execa("git", ["commit", "-m", "gh-pages script deploy"]);
     console.log("Deleting old gh-pages build...");
     try {
       await execa("git", ["push", "-d", "origin", "gh-pages"]);
     } catch (e) {
     }
     try {
-      await execa("git", ["branch", "-D", "gh-pages"]);
+      await execa("git", ["branch -D", "gh-pages"]);
     } catch (e) {
     }
-    await execa("git", ["checkout", "--orphan", "gh-pages"]);
+    await execa("git", ["checkout", "-b", "gh-pages"]);
+    console.log("Building started...");
+    await execa("npm", ["run", "build"]);
+    // Understand if it's dist or build folder
+    const folderName = fs.existsSync("dist") ? "dist" : "build";
+    await execa("git", ["add", folderName, "--force"]);
+    await execa("git", ["commit", "-m", "gh-pages script deploy"]);
     console.log("Pushing to gh-pages...");
-    await execa("git", ["subtree", "push", "--prefix=Frontend/dist", "origin", "gh-pages"], { cwd: ".." });
+    await execa("git", ["subtree", "push", "--prefix=Frontend/dist", "origin", "gh-pages", "--force"], { cwd: ".." });
     await execa("git", ["checkout", "-f", "main"]);
-    await execa("git", ["reset", "HEAD~1", "--hard"]);
-    try {
-      await execa("rmdir", [folderName, "/S", "/Q"]);
-    } catch (e) {
-    }
+    await execa("rmdir", [folderName, "/S", "/Q"]);
     console.log("Successfully deployed, check your settings");
   } catch (e) {
     // eslint-disable-next-line no-console
