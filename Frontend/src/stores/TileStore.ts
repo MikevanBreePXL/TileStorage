@@ -77,9 +77,6 @@ export const useTilesStore = defineStore(STORE_NAME, {
       await this.initDB();
       await this.db.delete(STORE_NAME, id);
       this.tiles = this.tiles.filter(tile => tile.id !== id);
-
-      // Ensure IndexedDB is updated
-      await this.saveTiles();
     }
   }
 });
