@@ -147,7 +147,13 @@ export default {
           width="100%"
           v-model="this.tile.totalPrice"
         ></v-text-field>
-      
+
+        <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
+          <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">Annuleren</v-btn></a>
+          <v-btn id="save-button" width="42vw" color="green-darken-2" :onclick="saveTile">
+            Opslaan
+          </v-btn>
+        </div>
 
         <div class="py-3 w-100">
           <v-btn
@@ -166,29 +172,26 @@ export default {
               prepend-icon="fa-solid fa-trash-can"
               text="Weet je zeker dat je de tegel wilt verwijderen uit de lijst?"
               title="Verwijderen bevestigen"
-              color="red-darken-3"
+              color="red-darken-2"
             >
               <template v-slot:actions>
                 <v-btn
-                  text="Verwijderen"
-                  @click="removeTile"
+                    variant="elevated"
+                    color="grey-darken-3"
+                    text="Annuleren"
+                    @click="dialog = false"
                 ></v-btn>
                 <v-btn
-                  text="Annuleren"
-                  @click="dialog = false"
+                    variant="elevated"
+                    color="#9B1A11"
+                    text="Verwijderen"
+                    @click="removeTile"
                 ></v-btn>
               </template>
             </v-card>
           </v-dialog>
         </div>
       </div>
-    </div>
-
-    <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
-      <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">Annuleren</v-btn></a>
-      <v-btn id="save-button" width="42vw" color="green-darken-2" :onclick="saveTile">
-        Opslaan
-      </v-btn>
     </div>
   </div>
 </template>
