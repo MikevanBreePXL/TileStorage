@@ -4,8 +4,16 @@ import fs from "fs";
 
 (async () => {
   try {
-    await execa("git", ["branch", "-D", "gh-pages"]); 
-    await execa("git", ["checkout", "--orphan", "gh-pages"]);
+    console.log("Deleting old gh-pages build...");
+    try {
+      await execa("git", ["branch", "-D", "gh-pages"]); 
+    } catch (e) {
+    }
+    try {
+      await execa("git", ["checkout", "--orphan", "gh-pages"]);
+    } catch (e) {
+    }
+
     // eslint-disable-next-line no-console
     console.log("Building started...");
     await execa("npm", ["run", "build"]);
