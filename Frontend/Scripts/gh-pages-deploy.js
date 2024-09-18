@@ -24,6 +24,12 @@ import fs from "fs";
     console.log("Pushing to gh-pages...");
     await execa("git", ["subtree", "push", "\-\-prefix\=Frontend\/dist", "origin", "gh\-pages"], { cwd: ".." });
     await execa("git", ["reset", "HEAD~1", "--mixed"]);
+
+    await execa("git", ["checkout", "origin/main", "--", "README.md"]);
+    await execa("git", ["add", "README.md"]);
+    await execa("git", ["commit", "-m", '\"Update README.md from main\"']);
+    await execa("git", ["push", "origin", "\`HEAD\`:gh-pages"]);
+
     await execa("git", ["branch", "-D", "gh-pages"]);
     await execa("rmdir", [folderName, "/S", "/Q"], { shell: true });
     console.log("Successfully deployed, check your settings");
