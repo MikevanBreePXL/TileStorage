@@ -19,9 +19,9 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
 const customizedDarkTheme = {
-  dark: false,
+  dark: true,
   colors: {
-    'background': '#FFFFFF',
+    'background': '#242424',
     surface: '#FFFFFF',
     'surface-bright': '#FFFFFF',
     'surface-light': '#EEEEEE',
