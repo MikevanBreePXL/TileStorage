@@ -68,16 +68,3 @@ button:focus-visible {
 .v-text-field__prefix, .v-text-field__suffix {
   color: #eee !important;
 }
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
