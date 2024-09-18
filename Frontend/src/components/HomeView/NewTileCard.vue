@@ -11,7 +11,7 @@ export default {
         height="100%">
         <v-card-text>
             <div class="text-center">
-                <v-icon size="x-large" icon="fas fa-plus" />
+                <v-icon size="x-large" color="primary" icon="fas fa-plus" />
             </div>
         </v-card-text>
     </v-card>

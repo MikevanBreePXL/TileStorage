@@ -18,44 +18,37 @@ import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
-const customizedDarkTheme = {
-  dark: true,
-  colors: {
-    'background': '#242424',
-    surface: '#FFFFFF',
-    'surface-bright': '#FFFFFF',
-    'surface-light': '#EEEEEE',
-    'surface-variant': '#424242',
-    'on-surface-variant': '#EEEEEE',
-    primary: '#1867C0',
-    'primary-darken-1': '#1F5592',
-    secondary: '#48A9A6',
-    'secondary-darken-1': '#018786',
-    error: '#B00020',
-    info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FB8C00',
-  },
-};
-
 const vuetify = createVuetify({
     components,
     directives,
     ssr: true,
     theme: {
-      defaultTheme: 'light',
-      themes: {
-        customizedDarkTheme,
-      },
+        defaultTheme: 'customizedTheme',
+        variations: {
+            colors: ['primary', 'secondary', 'tertiary'],
+            lighten: 2,
+            darken: 2,
+        },
+        themes: {
+            customizedTheme: {
+                dark: false,
+                colors: {
+                    primary: '#073077',
+                    secondary: '#276ee0',
+                    tertiary: '#35c2ff',
+                    background: '#071941',
+                }
+            }
+        }
     },
     icons: {
-      defaultSet: 'fa',
-      aliases,
-      sets: {
-        fa
-      },
+        defaultSet: 'fa',
+        aliases,
+        sets: {
+            fa
+        },
     }
-  });
+});
 
 const app = createApp(App);
 app.use(createPinia());
