@@ -13,18 +13,17 @@ import fs from "fs";
     await execa("git", ["commit", "-m", "gh-pages script deploy"]);
     console.log("Deleting old gh-pages build...");
     try {
-      await execa("git", ["push", "-d", "origin", "gh-pages"]);
-    } catch (e) {
-    }
-    try {
       await execa("git", ["branch", "-D", "gh-pages"]);
     } catch (e) {
     }
-    await execa("git", ["checkout", "--orphan", "gh-pages"]);
+    try {
+      await execa("git", ["push", "-d", "origin", "gh-pages"]);
+    } catch (e) {
+    }
+    await execa("git", ["branch", "gh-pages"]);
     console.log("Pushing to gh-pages...");
-    await execa("git", ["subtree", "push", "--prefix=Frontend/dist", "origin", "gh-pages"], { cwd: ".." });
-    await execa("git", ["checkout", "-f", "main"]);
-    await execa("git", ["reset", "HEAD~1", "--hard"]);
+    await execa("git", ["subtree", "push", "\-\-prefix\=Frontend\/dist", "origin", "gh\-pages"], { cwd: ".." });
+    await execa("git", ["reset", "HEAD~1", "--mixed"]);
     try {
       await execa("rmdir", [folderName, "/S", "/Q"]);
     } catch (e) {
