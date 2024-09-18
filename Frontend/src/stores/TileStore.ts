@@ -30,6 +30,10 @@ export const useTilesStore = defineStore('tiles', {
         console.log(this.tiles[foundIndex] = tile);
       }
     },
+    removeTile(tileId) {
+      let foundIndex = this.tiles.findIndex(searchTile => searchTile.id === tileId);
+      this.tiles = this.tiles.slice(0, foundIndex).concat(this.tiles.slice(foundIndex + 1));
+    },
     saveData() {
       console.log("Saving data...");
       localStorage.setItem('tiles', JSON.stringify(this.tiles));

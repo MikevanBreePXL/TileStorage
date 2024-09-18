@@ -37,6 +37,7 @@ export default {
       store,
       tile,
       isTotalCalculated: false,
+      dialog: false,
     };
   },
   components: {
@@ -44,13 +45,26 @@ export default {
   },
   methods: {
     saveTile() {
-      let form = document.getElementById('details-form');
-      form.classList.add('fadeOutRight');
+      document.getElementById('details-form').classList.add('fadeOutRight');
+      document.getElementById('form-buttons').classList.add('animate__animated', 'animate__fadeOut');
       this.tile.totalPrice = parseFloat(this.tile.totalPrice);
+
       console.log("saved result:");
       console.log(this.tile);
+
       this.store.saveTile(this.tile);
 
+      setTimeout(() => {
+        this.$router.back();
+      }, 1000);
+    },
+    removeTile() {
+      document.getElementById('details-form').classList.add('animate__fadeOut');
+      document.getElementById('form-buttons').classList.add('animate__animated', 'animate__fadeOut');
+      
+      this.store.removeTile(this.tile.id);
+      this.dialog = false;
+      
       setTimeout(() => {
         this.$router.back();
       }, 1000);
@@ -132,12 +146,48 @@ export default {
           label="totaalprijs"
           width="100%"
           v-model="this.tile.totalPrice"
-        >
-      </v-text-field>
+        ></v-text-field>
+      
+
+        <div class="text-center pa-4">
+          <v-btn
+            @click="dialog = true"
+            prepend-icon="fa-solid fa-trash-can"
+            text="Verwijder tegel"
+            class="ml-0 mr-auto"
+            color="red-darken-3"
+          ></v-btn>
+
+          <v-dialog
+            v-model="dialog"
+            width="auto"
+          >
+            <v-card
+              max-width="400"
+              prepend-icon="fa-solid fa-trash-can"
+              text="Weet je zeker dat je de tegel wilt verwijderen uit de lijst?"
+              title="Verwijderen bevestigen"
+              color="red"
+            >
+              <template v-slot:actions>
+                <v-btn
+                  class="ms-auto"
+                  text="Verwijderen"
+                  @click="removeTile"
+                ></v-btn>
+                <v-btn
+                  class="ms-auto"
+                  text="Annuleren"
+                  @click="dialog = false"
+                ></v-btn>
+              </template>
+            </v-card>
+          </v-dialog>
+        </div>
       </div>
     </div>
 
-    <div class="buttons w-90 mx-auto d-flex flex-row justify-space-between" z-index="2">
+    <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
       <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">Annuleren</v-btn></a>
       <v-btn id="save-button" width="42vw" color="green-darken-2" :onclick="saveTile">
         Opslaan
