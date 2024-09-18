@@ -47,9 +47,9 @@ export default {
     <div class="list d-flex flex-column ga-2 justify-center align-center">
       <NewTileCard class="animate__animated fadeInLeft" :to="{ name: 'TileDetails', params: { tileId: 'new' }}"/>
       <TileInfoCard class="animate__animated fadeInLeft" style="animation-delay: 250ms"/>
-      <div v-for="tile in this.store.tiles" :key="tile.id">
+      <div v-for="(tile, index) in this.store.tiles" :key="tile.id">
         <RouterLink :to="{ name: 'TileDetails', params: { tileId: tile.id }}">
-          <CustomTileCard class="animate__animated fadeInLeft" :style="'animation-delay: ' + (250 * tile.id + 250) + 'ms'"
+          <CustomTileCard class="animate__animated fadeInLeft" :style="'animation-delay: ' + (250 * index + 500) + 'ms'"
                           height="100%" :name="tile.tilename"
                           :tileWidth="parseFloat(tile.width)" :tileLength="parseFloat(tile.length)"
                           :amountOfBoxes="parseFloat(tile.amountOfBoxes)"
