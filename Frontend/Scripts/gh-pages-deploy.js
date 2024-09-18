@@ -24,7 +24,8 @@ import fs from "fs";
     console.log("Pushing to gh-pages...");
     await execa("git", ["subtree", "push", "\-\-prefix\=Frontend\/dist", "origin", "gh\-pages"], { cwd: ".." });
     await execa("git", ["reset", "HEAD~1", "--mixed"]);
-    await execa("rmdir", [folderName, "/S", "/Q"]);
+    await execa("git", ["branch", "-D", "gh-pages"]);
+    await execa("rmdir", [folderName, "/S", "/Q"], { shell: true });
     console.log("Successfully deployed, check your settings");
   } catch (e) {
     // eslint-disable-next-line no-console
