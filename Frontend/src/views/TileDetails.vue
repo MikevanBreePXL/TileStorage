@@ -12,7 +12,7 @@ export default {
     let tile;
     if (this.tileId === 'new') {
       tile = {
-        id: 0,
+        id: -1,
         tilename: '',
         width: 0,
         length: 0,
@@ -44,7 +44,7 @@ export default {
     TopLogoBar,
   },
   methods: {
-    saveTile() {
+    async saveTile() {
       document.getElementById('details-form').classList.add('fadeOutRight');
       document.getElementById('form-buttons').classList.add('animate__animated', 'animate__fadeOut');
       this.tile.totalPrice = parseFloat(this.tile.totalPrice);
@@ -52,7 +52,7 @@ export default {
       console.log("saved result:");
       console.log(this.tile);
 
-      this.store.saveTile(this.tile);
+      await this.store.addOrUpdateTile(this.tile);
 
       setTimeout(() => {
         this.$router.back();
