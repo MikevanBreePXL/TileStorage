@@ -121,7 +121,7 @@ export default {
             color="secondary"
             type="number"
             v-model="this.tile.amountOfBoxes"
-            :onchange="() => { if (this.isTotalCalculated) CalculateTotalSquareMeters }"
+            v-on:update:model-value="CalculateTotalSquareMeters"
             @focus="$event.target.select()"
           ></v-text-field>
           <span class="mx-2">x</span>
@@ -132,7 +132,7 @@ export default {
             color="secondary"
             type="number"
             v-model="this.tile.squareMetersPerBox"
-            :onchange="() => { if (this.isTotalCalculated) CalculateTotalSquareMeters }"
+            v-on:update:model-value="CalculateTotalSquareMeters"
             @focus="$event.target.select()"
           ></v-text-field>
         </div>
@@ -165,42 +165,47 @@ export default {
           @focus="$event.target.select()"
         ></v-text-field>
 
+        <v-btn
+            @click="dialog = true"
+            prepend-icon="fa-solid fa-trash-can"
+            class="mt-5"
+            text="Verwijder tegel"
+            color="red-darken-3"
+        ></v-btn>
+
         <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
-          <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">Annuleren</v-btn></a>
-          <v-btn id="save-button" width="42vw" color="green-darken-2" :onclick="saveTile">
+          <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">
+            Annuleren
+          </v-btn></a>
+          <v-btn :onclick="saveTile" id="save-button" width="42vw" color="green-darken-2">
             Opslaan
           </v-btn>
         </div>
 
-        <div class="py-3 w-100">
-          <v-btn
-            @click="dialog = true"
-            prepend-icon="fa-solid fa-trash-can"
-            text="Verwijder tegel"
-            color="red-darken-3"
-          ></v-btn>
-
+        <div>
           <v-dialog
             v-model="dialog"
             width="auto"
           >
             <v-card
               max-width="400"
-              prepend-icon="fa-solid fa-trash-can"
-              text="Weet je zeker dat je de tegel wilt verwijderen uit de lijst?"
               title="Verwijderen bevestigen"
-              color="red-darken-2"
+              text="Weet je zeker dat je de tegel wilt verwijderen uit de lijst?"
+              color="red-darken-3"
             >
+              <template v-slot:prepend>
+                <v-icon icon="fa-solid fa-trash-can" color="black"></v-icon>
+              </template>
               <template v-slot:actions>
                 <v-btn
-                    variant="elevated"
-                    color="grey-darken-3"
+                    variant="tonal"
+                    color="black"
                     text="Annuleren"
                     @click="dialog = false"
                 ></v-btn>
                 <v-btn
                     variant="elevated"
-                    color="#9B1A11"
+                    color="black"
                     text="Verwijderen"
                     @click="removeTile"
                 ></v-btn>
