@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<template dark>
+<template>
   <div id="details-page" class="details-page d-flex flex-column">
     <TopLogoBar />
     <div id="details-form" class="animate__animated">
@@ -88,22 +88,28 @@ export default {
           width="100%"
           name="tileName"
           label="Tegelnaam"
+          color="secondary"
           v-model="this.tile.tilename"
+          @focus="$event.target.select()"
         ></v-text-field>
 
         <div class="tile-size d-flex flex-row justify-center align-center w-100">
           <v-text-field
             name="tileWidth"
             label="Breedte"
+            color="secondary"
             type="number"
             v-model="this.tile.width"
+            @focus="$event.target.select()"
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
             name="tileLength"
             label="Lengte"
+            color="secondary"
             type="number"
             v-model="this.tile.length"
+            @focus="$event.target.select()"
           ></v-text-field>
         </div>
       
@@ -112,29 +118,38 @@ export default {
             width="50%"
             name="amountOfBoxes"
             label="Aantal dozen"
+            color="secondary"
+            type="number"
             v-model="this.tile.amountOfBoxes"
+            :onchange="() => { if (this.isTotalCalculated) CalculateTotalSquareMeters }"
+            @focus="$event.target.select()"
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
             width="50%"
             name="squareMetersPerBox"
             label="m² per doos"
+            color="secondary"
             type="number"
             v-model="this.tile.squareMetersPerBox"
+            :onchange="() => { if (this.isTotalCalculated) CalculateTotalSquareMeters }"
+            @focus="$event.target.select()"
           ></v-text-field>
         </div>
 
         <div class="total-square-meters d-flex flex-row align-start w-100">
           <div class="d-flex flex-column text-center justify-center align-center mr-5">
-            <v-checkbox-btn color="primary" v-model="isTotalCalculated" @change="CalculateTotalSquareMeters()"></v-checkbox-btn>
+            <v-checkbox-btn color="secondary" v-model="isTotalCalculated" @change="CalculateTotalSquareMeters"></v-checkbox-btn>
             <span style="color: #bbb;">Berekend</span>
           </div>
           <v-text-field
             width="50%"
             name="totalSquareMeters"
             label="Totaal m²"
+            color="secondary"
             v-bind:disabled="isTotalCalculated"
             v-model="this.tile.totalSquareMeters"
+            @focus="$event.target.select()"
           ></v-text-field>
         </div>
 
@@ -144,8 +159,10 @@ export default {
           type="number" min="0.00" max="10000.00" step="0.01"
           name="totalPrice"
           label="totaalprijs"
+          color="secondary"
           width="100%"
           v-model="this.tile.totalPrice"
+          @focus="$event.target.select()"
         ></v-text-field>
 
         <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
