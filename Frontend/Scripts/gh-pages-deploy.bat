@@ -7,7 +7,9 @@ git branch -D gh-pages
 git push -d origin gh-pages
 git checkout --orphan gh-pages
 echo Pushing to gh-pages...
-git push origin HEAD:gh-pages --force
+cd ..
+git subtree push --prefix=Frontend/dist origin gh-pages
+cd Frontend
 echo Finished, deleting branch...
 git checkout -f main
 rmdir /S /Q dist
