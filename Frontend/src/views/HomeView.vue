@@ -23,18 +23,18 @@ export default {
     // Listen for visibility change (minimized/visible)
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
-        this.store.saveData();  // Save when the app is minimized
+        this.store.saveTiles();  // Save when the app is minimized
       } else if (document.visibilityState === 'visible') {
-        this.store.loadData();  // Load when the app becomes visible again
+        this.store.loadTiles();  // Load when the app becomes visible again
       }
     });
   },
   beforeUnmount() {
     document.removeEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
-        this.store.saveData();  // Save when the app is minimized
+        this.store.saveTiles();  // Save when the app is minimized
       } else if (document.visibilityState === 'visible') {
-        this.store.loadData();  // Load when the app becomes visible again
+        this.store.loadTiles();  // Load when the app becomes visible again
       }
     });
   }

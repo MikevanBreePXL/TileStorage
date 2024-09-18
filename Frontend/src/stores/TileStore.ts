@@ -1,10 +1,15 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia';
+import { openDB } from 'idb';
+
+const DB_NAME = 'vanBreeDatabase';
+const STORE_NAME = 'tiles';
 
 // the first argument is a unique id of the store across your application
-export const useTilesStore = defineStore('tiles', {
+export const useTilesStore = defineStore(STORE_NAME, {
   // other options...
   state: () => ({
-    tiles: []
+    tiles: [],
+    db: null,
   }),
   getters: {
     getTiles(state) {
@@ -15,40 +20,63 @@ export const useTilesStore = defineStore('tiles', {
     getTileById(id) {
       return this.tiles.find(tile => tile.id === id)
     },
-    saveTile(tile) {
-      console.log("Saving tile...");
-      console.log(tile);
-      if (tile.id === 0) {
-        console.log("te foq, dis new one?");
-        tile.id = this.tiles.length + 1;
+    async initDB() {
+      if (!this.db) {
+        this.db = await openDB(DB_NAME, 1, {
+          upgrade(db) {
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+              db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+            }
+          },
+        });
+      }
+    },
+    async loadTiles() {
+      await this.initDB();
+      this.tiles = await this.db.getAll(STORE_NAME);
+    },
+    async saveTiles() {
+      await this.initDB();
+      for (const tile of this.tiles) {
+        const plainTile = JSON.parse(JSON.stringify(tile));
+        await this.db.put(STORE_NAME, plainTile);
+      }
+    },
+    async addOrUpdateTile(tile) {
+      await this.initDB();
+
+      let tileToSave = { ...tile };
+      if (tileToSave.id === -1) {
+        delete tileToSave.id; // Remove id so autoIncrement works
+      }
+
+      // Ensure the object is a plain object (not a reactive proxy)
+      const plainTile = JSON.parse(JSON.stringify(tileToSave));
+
+      console.log("plainTile:");
+      console.log(plainTile);
+
+      // Add or update the tile in IndexedDB
+      const id = await this.db.put(STORE_NAME, plainTile);
+      console.log("id:");
+      console.log(id);
+
+      // If the tile was new, update its id with the auto-generated one
+      if (!tile.id || tile.id === -1) {
+        tile.id = id;
+
+        // Add new tile to Pinia state
         this.tiles.push(tile);
       } else {
-        let foundIndex = this.tiles.findIndex(searchTile => searchTile.id === tile.id);
-        console.log("found index:"); 
-        console.log(foundIndex);
-        console.log("Saving to:");
-        console.log(this.tiles[foundIndex] = tile);
+        // Update existing tile in Pinia state
+        const index = this.tiles.findIndex(t => t.id === tile.id);
+        this.tiles[index] = tile;
       }
     },
-    removeTile(tileId) {
-      let foundIndex = this.tiles.findIndex(searchTile => searchTile.id === tileId);
-      this.tiles = this.tiles.slice(0, foundIndex).concat(this.tiles.slice(foundIndex + 1));
-    },
-    saveData() {
-      console.log("Saving data...");
-      localStorage.setItem('tiles', JSON.stringify(this.tiles));
-    },
-    loadData() {
-      let data = localStorage.getItem('tiles');
-      if (data) {
-        this.tiles = JSON.parse(data);
-      } else {
-        this.tiles = [
-          { id: 1, tilename: 'AB KIMBERLEY', width: 30, length: 30, squareMetersPerBox: 2.128, amountOfBoxes: 10, totalSquareMeters: 21.28, totalPrice: 0.00 },
-          { id: 2, tilename: 'Azteca Delhi 20 ash', width: 20, length: 80, squareMetersPerBox: 2.125, amountOfBoxes: 4, totalSquareMeters: 8.5, totalPrice: 0.00 },
-          { id: 3, tilename: 'Azteca Moonlight Lux 120 black', width: 40, length: 120, squareMetersPerBox: 2.125, amountOfBoxes: 3, totalSquareMeters: 6.375, totalPrice: 0.00 },
-        ];
-      }
-    },
-  },
-})
+    async removeTile(id) {
+      await this.initDB();
+      await this.db.delete(STORE_NAME, id);
+      this.tiles = this.tiles.filter(tile => tile.id !== id);
+    }
+  }
+});
