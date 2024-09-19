@@ -16,28 +16,22 @@ export default {
         tilename: '',
         width: null,
         length: null,
-        squareMetersPerBox: null,
         amountOfBoxes: null,
+        squareMetersPerBox: null,
         totalSquareMeters: null,
         pricePerSquareMeter: null,
       };
     } else {
-      tile = Object.assign({}, store.getTileById(parseInt(this.tileId)));
-      console.log("total price:");
-      console.log(tile.pricePerSquareMeter);
-      if (tile.pricePerSquareMeter === undefined) {
-        console.log("adding total price property to tile...");
-        tile["pricePerSquareMeter"] = 0;
-        tile.pricePerSquareMeter = 0;
-      }
+      tile = Object.assign({},
+                store.getTileById(parseInt(this.tileId))
+              );
     }
     console.log(tile);
 
     return {
       store,
       tile,
-      isTotalCalculated: false,
-      totalPrice: tile.pricePerSquareMeter * tile.totalSquareMeters,
+      totalPrice: Number.isNaN(tile.pricePerSquareMeter * tile.totalSquareMeters) ? 0 : tile.pricePerSquareMeter * tile.totalSquareMeters,
       dialog: false,
     };
   },
@@ -71,10 +65,17 @@ export default {
       }, 1000);
     },
     CalculateTotalSquareMeters() {
-      if (this.isTotalCalculated) {
-        this.tile.totalSquareMeters = ((parseFloat(this.tile.squareMetersPerBox * 100) * parseFloat(this.tile.amountOfBoxes * 100)) / 10000.0).toFixed(3);
-        this.totalPrice = (((this.tile.pricePerSquareMeter * 100) * (this.tile.totalSquareMeters * 100)) / 10000.0).toFixed(2);
-      }
+      this.tile.totalSquareMeters = ((parseFloat(this.tile.squareMetersPerBox * 100) * parseFloat(this.tile.amountOfBoxes * 100)) / 10000);  
+    },
+    CalculatePriceTotal() {
+      this.totalPrice = (((this.tile.pricePerSquareMeter * 100) * (this.tile.totalSquareMeters * 100)) / 10000);
+    },
+    CalculatePricePerSquareMeter() {
+      console.log('fired! pew pew!')
+      this.tile.pricePerSquareMeter = ((this.totalPrice * 100) / (this.tile.totalSquareMeters * 100));
+    },
+    CalculateAmountOfBoxes() {
+      this.tile.amountOfBoxes = ((this.tile.totalSquareMeters * 100) / (this.tile.squareMetersPerBox * 100));
     }
   }
 };
@@ -126,7 +127,7 @@ export default {
             color="secondary"
             type="number"
             v-model="this.tile.amountOfBoxes"
-            @change="CalculateTotalSquareMeters"
+            @input="CalculateTotalSquareMeters"
             @focus="$event.target.select()"
           ></v-text-field>
           <span class="mx-2">x</span>
@@ -138,7 +139,7 @@ export default {
             color="secondary"
             type="number"
             v-model="this.tile.squareMetersPerBox"
-            v-on:update:model-value="CalculateTotalSquareMeters"
+            @input="CalculateTotalSquareMeters"
             @focus="$event.target.select()"
           ></v-text-field>
         </div>
@@ -149,36 +150,35 @@ export default {
           name="totalSquareMeters"
           label="Totaal m²"
           color="secondary"
-          v-bind:disabled="isTotalCalculated"
           v-model="this.tile.totalSquareMeters"
+          @input="CalculatePriceTotal(); CalculateAmountOfBoxes();"
           @focus="$event.target.select()"
         ></v-text-field>
 
-        <div class="total-price d-flex flex-row align-start w-100 ga-4">
+        <div class="total-price d-flex flex-row align-start justify-space-between w-100 ga-4">
           <v-text-field
             variant="outlined"
-            class="pr-0"
-            id="total-price"
+            color="secondary"
             width="40%"
             prefix="€"
             type="number"
             label="Totaalprijs"
-            v-model:value="this.totalPrice"
-            readonly
+            v-model="this.totalPrice"
+            @input="CalculatePricePerSquareMeter"
+            @focus="$event.target.select()"
           >
           </v-text-field>
           <v-text-field
             variant="outlined"
-            class="align-self-end"
             prefix="€"
-            type="number" min="0.00" max="10000.00" step="0.01"
+            type="number" min="0.00" max="10000.00" step="0.5"
             width="60%"
             name="pricePerSquareMeter"
             label="Prijs per m²"
             color="secondary"
             v-model="this.tile.pricePerSquareMeter"
             @focus="$event.target.select()"
-            @change="this.totalPrice = (this.tile.pricePerSquareMeter * this.tile.totalSquareMeters).toFixed(2)"
+            @input="CalculatePriceTotal"
           ></v-text-field>
         </div>
 
