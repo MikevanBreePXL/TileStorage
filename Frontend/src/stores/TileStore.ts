@@ -53,13 +53,8 @@ export const useTilesStore = defineStore(STORE_NAME, {
       // Ensure the object is a plain object (not a reactive proxy)
       const plainTile = JSON.parse(JSON.stringify(tileToSave));
 
-      console.log("plainTile:");
-      console.log(plainTile);
-
       // Add or update the tile in IndexedDB
       const id = await this.db.put(STORE_NAME, plainTile);
-      console.log("id:");
-      console.log(id);
 
       // If the tile was new, update its id with the auto-generated one
       if (!tile.id || tile.id === -1) {
