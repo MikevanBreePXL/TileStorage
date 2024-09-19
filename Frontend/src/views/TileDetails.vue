@@ -165,14 +165,6 @@ export default {
           @focus="$event.target.select()"
         ></v-text-field>
 
-        <v-btn
-            @click="dialog = true"
-            prepend-icon="fa-solid fa-trash-can"
-            class="mt-5"
-            text="Verwijder tegel"
-            color="red-darken-3"
-        ></v-btn>
-
         <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
           <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">
             Annuleren
@@ -183,6 +175,13 @@ export default {
         </div>
 
         <div>
+          <v-btn
+              @click="dialog = true"
+              prepend-icon="fa-solid fa-trash-can"
+              class="mt-5"
+              text="Verwijder tegel"
+              color="red-darken-3"
+          ></v-btn>
           <v-dialog
             v-model="dialog"
             width="auto"
