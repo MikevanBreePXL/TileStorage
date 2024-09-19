@@ -54,7 +54,8 @@ export default {
                           :tileWidth="parseFloat(tile.width)" :tileLength="parseFloat(tile.length)"
                           :amountOfBoxes="parseFloat(tile.amountOfBoxes)"
                           :squareMetersPerBox="((Math.round(100 * tile.squareMetersPerBox)) / 100.0)"
-                          :totalSquareMeters="((Math.round(100 * tile.totalSquareMeters)) / 100.0)"/>
+                          :totalSquareMeters="((Math.round(100 * tile.totalSquareMeters)) / 100.0)"
+                          :pricePerSquareMeter="((Math.round(100 * tile.pricePerSquareMeter * tile.totalSquareMeters)) / 100.0)"/>
         </RouterLink>
       </div>
     </div>

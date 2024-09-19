@@ -19,16 +19,16 @@ export default {
         squareMetersPerBox: 0,
         amountOfBoxes: 0,
         totalSquareMeters: 0,
-        totalPrice: 0,
+        pricePerSquareMeter: 0,
       };
     } else {
       tile = Object.assign({}, store.getTileById(parseInt(this.tileId)));
       console.log("total price:");
-      console.log(tile.totalPrice);
-      if (tile.totalPrice === undefined) {
+      console.log(tile.pricePerSquareMeter);
+      if (tile.pricePerSquareMeter === undefined) {
         console.log("adding total price property to tile...");
-        tile["totalPrice"] = 0;
-        tile.totalPrice = 0;
+        tile["pricePerSquareMeter"] = 0;
+        tile.pricePerSquareMeter = 0;
       }
     }
     console.log(tile);
@@ -37,6 +37,7 @@ export default {
       store,
       tile,
       isTotalCalculated: false,
+      totalPrice: tile.pricePerSquareMeter * tile.totalSquareMeters,
       dialog: false,
     };
   },
@@ -47,7 +48,7 @@ export default {
     async saveTile() {
       document.getElementById('details-form').classList.add('fadeOutRight');
       document.getElementById('form-buttons').classList.add('animate__animated', 'animate__fadeOut');
-      this.tile.totalPrice = parseFloat(this.tile.totalPrice);
+      this.tile.pricePerSquareMeter = parseFloat(this.tile.pricePerSquareMeter);
 
       console.log("saved result:");
       console.log(this.tile);
@@ -72,6 +73,7 @@ export default {
     CalculateTotalSquareMeters() {
       if (this.isTotalCalculated) {
         this.tile.totalSquareMeters = parseFloat(this.tile.squareMetersPerBox) * parseFloat(this.tile.amountOfBoxes);
+        this.totalPrice = (this.tile.pricePerSquareMeter * this.tile.totalSquareMeters).toFixed(2);
         console.log(this.tile.totalSquareMeters);
       }
     }
@@ -153,17 +155,31 @@ export default {
           ></v-text-field>
         </div>
 
-        <v-text-field
-          class="align-self-end"
-          prefix="€"
-          type="number" min="0.00" max="10000.00" step="0.01"
-          name="totalPrice"
-          label="totaalprijs"
-          color="secondary"
-          width="100%"
-          v-model="this.tile.totalPrice"
-          @focus="$event.target.select()"
-        ></v-text-field>
+        <div class="total-price d-flex flex-row align-start w-100 ga-4">
+          <v-text-field
+              class="pr-0"
+              id="total-price"
+              width="40%"
+              prefix="€"
+              type="number"
+              label="Totaalprijs"
+              variant="outlined"
+              v-model="this.totalPrice"
+          >
+          </v-text-field>
+          <v-text-field
+            class="align-self-end"
+            prefix="€"
+            type="number" min="0.00" max="10000.00" step="0.01"
+            width="60%"
+            name="pricePerSquareMeter"
+            label="Prijs per m²"
+            color="secondary"
+            v-model="this.tile.pricePerSquareMeter"
+            @focus="$event.target.select()"
+            @change="this.totalPrice = (this.tile.pricePerSquareMeter * this.tile.totalSquareMeters).toFixed(2)"
+          ></v-text-field>
+        </div>
 
         <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
           <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">

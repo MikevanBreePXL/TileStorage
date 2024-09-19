@@ -8,6 +8,7 @@ export default {
         squareMetersPerBox: Number,
         amountOfBoxes: Number,
         totalSquareMeters: Number,
+        pricePerSquareMeter: Number,
     },
 }
 </script>
@@ -15,7 +16,10 @@ export default {
 <template>
   <v-card width="90vw" height="100%" class="py-0 d-flex flex-column">
     <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
-      {{ name }}
+      <div class=" d-flex flex-row justify-space-between align-center">
+        <span>{{ name }}</span>
+        <span>€ {{ pricePerSquareMeter }}</span>
+      </div>
     </v-card-title>
     <v-card-text class="text-center card-text pb-1">
       <div class="d-flex flex-row justify-space-between align-center">
