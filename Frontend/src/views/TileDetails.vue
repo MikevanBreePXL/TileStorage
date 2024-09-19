@@ -68,14 +68,13 @@ export default {
       this.tile.totalSquareMeters = ((parseFloat(this.tile.squareMetersPerBox * 100) * parseFloat(this.tile.amountOfBoxes * 100)) / 10000);  
     },
     CalculatePriceTotal() {
-      this.totalPrice = (((this.tile.pricePerSquareMeter * 100) * (this.tile.totalSquareMeters * 100)) / 10000);
+      this.totalPrice = (((this.tile.pricePerSquareMeter * 100) * (this.tile.totalSquareMeters * 100)) / 10000).toFixed(2);
     },
     CalculatePricePerSquareMeter() {
-      console.log('fired! pew pew!')
-      this.tile.pricePerSquareMeter = ((this.totalPrice * 100) / (this.tile.totalSquareMeters * 100));
+      this.tile.pricePerSquareMeter = ((this.totalPrice * 100) / (this.tile.totalSquareMeters * 100)).toFixed(2);
     },
     CalculateAmountOfBoxes() {
-      this.tile.amountOfBoxes = ((this.tile.totalSquareMeters * 100) / (this.tile.squareMetersPerBox * 100));
+      this.tile.amountOfBoxes = ((this.tile.totalSquareMeters * 100) / (this.tile.squareMetersPerBox * 100)).toFixed(2);
     }
   }
 };
@@ -166,8 +165,7 @@ export default {
             v-model="this.totalPrice"
             @input="CalculatePricePerSquareMeter"
             @focus="$event.target.select()"
-          >
-          </v-text-field>
+          ></v-text-field>
           <v-text-field
             variant="outlined"
             prefix="€"
