@@ -17,7 +17,7 @@ export default {
   <v-card width="90vw" height="100%" class="py-0 d-flex flex-column">
     <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
       <div class=" d-flex flex-row justify-space-between align-center">
-        <span>{{ name }}</span>
+          <span id="tile-name">{{ name }}</span>
         <span>€ {{ pricePerSquareMeter }}</span>
       </div>
     </v-card-title>
@@ -40,8 +40,16 @@ p {
 span {
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 125%;
+  font-size: 115%;
 }
+
+#tile-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
 .card-text {
   margin-top: -0.8em;
 }
