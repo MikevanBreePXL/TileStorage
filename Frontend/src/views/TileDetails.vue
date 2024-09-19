@@ -65,7 +65,8 @@ export default {
       }, 1000);
     },
     CalculateTotalSquareMeters() {
-      this.tile.totalSquareMeters = ((parseFloat(this.tile.squareMetersPerBox * 100) * parseFloat(this.tile.amountOfBoxes * 100)) / 10000);  
+      this.tile.totalSquareMeters = ((parseFloat(this.tile.squareMetersPerBox * 100) * parseFloat(this.tile.amountOfBoxes * 100)) / 10000);
+      this.CalculatePriceTotal();
     },
     CalculatePriceTotal() {
       this.totalPrice = (((this.tile.pricePerSquareMeter * 100) * (this.tile.totalSquareMeters * 100)) / 10000).toFixed(2);
