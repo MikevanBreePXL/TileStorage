@@ -72,9 +72,8 @@ export default {
     },
     CalculateTotalSquareMeters() {
       if (this.isTotalCalculated) {
-        this.tile.totalSquareMeters = parseFloat(this.tile.squareMetersPerBox) * parseFloat(this.tile.amountOfBoxes);
-        this.totalPrice = (this.tile.pricePerSquareMeter * this.tile.totalSquareMeters).toFixed(2);
-        console.log(this.tile.totalSquareMeters);
+        this.tile.totalSquareMeters = ((parseFloat(this.tile.squareMetersPerBox * 100) * parseFloat(this.tile.amountOfBoxes * 100)) / 10000.0).toFixed(3);
+        this.totalPrice = (((this.tile.pricePerSquareMeter * 100) * (this.tile.totalSquareMeters * 100)) / 10000.0).toFixed(2);
       }
     }
   }
