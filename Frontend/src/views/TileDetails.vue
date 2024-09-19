@@ -165,6 +165,7 @@ export default {
               label="Totaalprijs"
               variant="outlined"
               v-model="this.totalPrice"
+              readonly
           >
           </v-text-field>
           <v-text-field
