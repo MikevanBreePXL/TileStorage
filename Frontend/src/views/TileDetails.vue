@@ -178,7 +178,7 @@ export default {
           <v-btn
               @click="dialog = true"
               prepend-icon="fa-solid fa-trash-can"
-              class="mt-5"
+              class="mt-2"
               text="Verwijder tegel"
               color="red-darken-3"
           ></v-btn>
