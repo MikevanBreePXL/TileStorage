@@ -14,12 +14,12 @@ export default {
       tile = {
         id: -1,
         tilename: '',
-        width: 0,
-        length: 0,
-        squareMetersPerBox: 0,
-        amountOfBoxes: 0,
-        totalSquareMeters: 0,
-        pricePerSquareMeter: 0,
+        width: null,
+        length: null,
+        squareMetersPerBox: null,
+        amountOfBoxes: null,
+        totalSquareMeters: null,
+        pricePerSquareMeter: null,
       };
     } else {
       tile = Object.assign({}, store.getTileById(parseInt(this.tileId)));
@@ -86,6 +86,7 @@ export default {
     <div id="details-form" class="animate__animated">
       <div class="w-90 mx-auto mt-10 d-flex flex-column justify-center align-center">
         <v-text-field
+          variant="outlined"
           width="100%"
           name="tileName"
           label="Tegelnaam"
@@ -96,6 +97,7 @@ export default {
 
         <div class="tile-size d-flex flex-row justify-center align-center w-100">
           <v-text-field
+            variant="outlined"
             name="tileWidth"
             label="Breedte"
             color="secondary"
@@ -105,6 +107,7 @@ export default {
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
+            variant="outlined"
             name="tileLength"
             label="Lengte"
             color="secondary"
@@ -116,17 +119,19 @@ export default {
       
         <div class="boxes d-flex flex-row align-center w-100">
           <v-text-field
+            variant="outlined"
             width="50%"
             name="amountOfBoxes"
             label="Aantal dozen"
             color="secondary"
             type="number"
             v-model="this.tile.amountOfBoxes"
-            v-on:update:model-value="CalculateTotalSquareMeters"
+            @change="CalculateTotalSquareMeters"
             @focus="$event.target.select()"
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
+            variant="outlined"
             width="50%"
             name="squareMetersPerBox"
             label="m² per doos"
@@ -138,36 +143,32 @@ export default {
           ></v-text-field>
         </div>
 
-        <div class="total-square-meters d-flex flex-row align-start w-100">
-          <div class="d-flex flex-column text-center justify-center align-center mr-5">
-            <v-checkbox-btn color="secondary" v-model="isTotalCalculated" @change="CalculateTotalSquareMeters"></v-checkbox-btn>
-            <span style="color: #bbb;">Berekend</span>
-          </div>
-          <v-text-field
-            width="50%"
-            name="totalSquareMeters"
-            label="Totaal m²"
-            color="secondary"
-            v-bind:disabled="isTotalCalculated"
-            v-model="this.tile.totalSquareMeters"
-            @focus="$event.target.select()"
-          ></v-text-field>
-        </div>
+        <v-text-field
+          variant="outlined"
+          width="100%"
+          name="totalSquareMeters"
+          label="Totaal m²"
+          color="secondary"
+          v-bind:disabled="isTotalCalculated"
+          v-model="this.tile.totalSquareMeters"
+          @focus="$event.target.select()"
+        ></v-text-field>
 
         <div class="total-price d-flex flex-row align-start w-100 ga-4">
           <v-text-field
-              class="pr-0"
-              id="total-price"
-              width="40%"
-              prefix="€"
-              type="number"
-              label="Totaalprijs"
-              variant="outlined"
-              v-model="this.totalPrice"
-              readonly
+            variant="outlined"
+            class="pr-0"
+            id="total-price"
+            width="40%"
+            prefix="€"
+            type="number"
+            label="Totaalprijs"
+            v-model:value="this.totalPrice"
+            readonly
           >
           </v-text-field>
           <v-text-field
+            variant="outlined"
             class="align-self-end"
             prefix="€"
             type="number" min="0.00" max="10000.00" step="0.01"
@@ -182,21 +183,28 @@ export default {
         </div>
 
         <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
-          <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">
+          <a @click="$router.back()"><v-btn
+                                      width="42vw"
+                                      color="red-darken-4"
+                                      >
             Annuleren
           </v-btn></a>
-          <v-btn :onclick="saveTile" id="save-button" width="42vw" color="green-darken-2">
+          <v-btn :onclick="saveTile"
+            id="save-button"
+            width="42vw"
+            color="green-darken-3">
             Opslaan
           </v-btn>
         </div>
 
-        <div>
+        <div class="w-100 mb-15">
           <v-btn
               @click="dialog = true"
               prepend-icon="fa-solid fa-trash-can"
-              class="mt-2"
+              class="mt-2 mb-10 text-red-accent-4"
+              color="black"
+              width="100%"
               text="Verwijder tegel"
-              color="red-darken-3"
           ></v-btn>
           <v-dialog
             v-model="dialog"
@@ -244,9 +252,12 @@ export default {
 }
 
 .buttons {
-  position: absolute;
+  position: fixed;
+  z-index: 2;
   bottom: 3em;
-  left: 5vw;
+  width: 100vw;
+  left: 0;
+  right: 0;
 }
 
 @keyframes fadeOutRight {
