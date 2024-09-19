@@ -37,6 +37,7 @@ const vuetify = createVuetify({
                     secondary: '#276ee0',
                     tertiary: '#35c2ff',
                     background: '#071941',
+                    'on-surface': '#FFFFFF',
                 }
             }
         }
@@ -51,7 +52,6 @@ const vuetify = createVuetify({
 });
 
 const app = createApp(App);
-app.use(createPinia());
 app.use(router);
 
 app.component('font-awesome-layers', FontAwesomeLayers)
@@ -59,5 +59,6 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 library.add(fas)
 library.add(far)
 app.use(vuetify);
+app.use(createPinia());
 
 app.mount('#app');

@@ -18,8 +18,8 @@ export default {
     window.removeEventListener('online', () => this.isOnline = true)
     window.removeEventListener('offline', () => this.isOnline = false)
   },
-  created: function () {
-    this.store.loadData();
+  created: async function () {
+    await this.store.loadTiles();
   }
 }
 </script>

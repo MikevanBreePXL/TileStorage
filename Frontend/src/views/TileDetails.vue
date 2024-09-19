@@ -12,7 +12,7 @@ export default {
     let tile;
     if (this.tileId === 'new') {
       tile = {
-        id: 0,
+        id: -1,
         tilename: '',
         width: 0,
         length: 0,
@@ -44,7 +44,7 @@ export default {
     TopLogoBar,
   },
   methods: {
-    saveTile() {
+    async saveTile() {
       document.getElementById('details-form').classList.add('fadeOutRight');
       document.getElementById('form-buttons').classList.add('animate__animated', 'animate__fadeOut');
       this.tile.totalPrice = parseFloat(this.tile.totalPrice);
@@ -52,7 +52,7 @@ export default {
       console.log("saved result:");
       console.log(this.tile);
 
-      this.store.saveTile(this.tile);
+      await this.store.addOrUpdateTile(this.tile);
 
       setTimeout(() => {
         this.$router.back();
@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<template dark>
+<template>
   <div id="details-page" class="details-page d-flex flex-column">
     <TopLogoBar />
     <div id="details-form" class="animate__animated">
@@ -88,22 +88,28 @@ export default {
           width="100%"
           name="tileName"
           label="Tegelnaam"
+          color="secondary"
           v-model="this.tile.tilename"
+          @focus="$event.target.select()"
         ></v-text-field>
 
         <div class="tile-size d-flex flex-row justify-center align-center w-100">
           <v-text-field
             name="tileWidth"
             label="Breedte"
+            color="secondary"
             type="number"
             v-model="this.tile.width"
+            @focus="$event.target.select()"
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
             name="tileLength"
             label="Lengte"
+            color="secondary"
             type="number"
             v-model="this.tile.length"
+            @focus="$event.target.select()"
           ></v-text-field>
         </div>
       
@@ -112,29 +118,38 @@ export default {
             width="50%"
             name="amountOfBoxes"
             label="Aantal dozen"
+            color="secondary"
+            type="number"
             v-model="this.tile.amountOfBoxes"
+            v-on:update:model-value="CalculateTotalSquareMeters"
+            @focus="$event.target.select()"
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
             width="50%"
             name="squareMetersPerBox"
             label="m² per doos"
+            color="secondary"
             type="number"
             v-model="this.tile.squareMetersPerBox"
+            v-on:update:model-value="CalculateTotalSquareMeters"
+            @focus="$event.target.select()"
           ></v-text-field>
         </div>
 
         <div class="total-square-meters d-flex flex-row align-start w-100">
           <div class="d-flex flex-column text-center justify-center align-center mr-5">
-            <v-checkbox-btn color="primary" v-model="isTotalCalculated" @change="CalculateTotalSquareMeters()"></v-checkbox-btn>
+            <v-checkbox-btn color="secondary" v-model="isTotalCalculated" @change="CalculateTotalSquareMeters"></v-checkbox-btn>
             <span style="color: #bbb;">Berekend</span>
           </div>
           <v-text-field
             width="50%"
             name="totalSquareMeters"
             label="Totaal m²"
+            color="secondary"
             v-bind:disabled="isTotalCalculated"
             v-model="this.tile.totalSquareMeters"
+            @focus="$event.target.select()"
           ></v-text-field>
         </div>
 
@@ -144,46 +159,53 @@ export default {
           type="number" min="0.00" max="10000.00" step="0.01"
           name="totalPrice"
           label="totaalprijs"
+          color="secondary"
           width="100%"
           v-model="this.tile.totalPrice"
+          @focus="$event.target.select()"
         ></v-text-field>
 
+        <v-btn
+            @click="dialog = true"
+            prepend-icon="fa-solid fa-trash-can"
+            class="mt-5"
+            text="Verwijder tegel"
+            color="red-darken-3"
+        ></v-btn>
+
         <div id="form-buttons" class="buttons w-90 mx-auto d-flex flex-row justify-space-between">
-          <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">Annuleren</v-btn></a>
-          <v-btn id="save-button" width="42vw" color="green-darken-2" :onclick="saveTile">
+          <a @click="$router.back()"><v-btn width="42vw" color="red-darken-3">
+            Annuleren
+          </v-btn></a>
+          <v-btn :onclick="saveTile" id="save-button" width="42vw" color="green-darken-2">
             Opslaan
           </v-btn>
         </div>
 
-        <div class="py-3 w-100">
-          <v-btn
-            @click="dialog = true"
-            prepend-icon="fa-solid fa-trash-can"
-            text="Verwijder tegel"
-            color="red-darken-3"
-          ></v-btn>
-
+        <div>
           <v-dialog
             v-model="dialog"
             width="auto"
           >
             <v-card
               max-width="400"
-              prepend-icon="fa-solid fa-trash-can"
-              text="Weet je zeker dat je de tegel wilt verwijderen uit de lijst?"
               title="Verwijderen bevestigen"
-              color="red-darken-2"
+              text="Weet je zeker dat je de tegel wilt verwijderen uit de lijst?"
+              color="red-darken-3"
             >
+              <template v-slot:prepend>
+                <v-icon icon="fa-solid fa-trash-can" color="black"></v-icon>
+              </template>
               <template v-slot:actions>
                 <v-btn
-                    variant="elevated"
-                    color="grey-darken-3"
+                    variant="tonal"
+                    color="black"
                     text="Annuleren"
                     @click="dialog = false"
                 ></v-btn>
                 <v-btn
                     variant="elevated"
-                    color="#9B1A11"
+                    color="black"
                     text="Verwijderen"
                     @click="removeTile"
                 ></v-btn>
