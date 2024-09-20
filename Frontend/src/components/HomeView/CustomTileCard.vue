@@ -18,7 +18,7 @@ export default {
     <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
       <div class=" d-flex flex-row justify-space-between align-center">
         <span id="tile-name">{{ name }}</span>
-        <span v-if="!Number.isNaN(totalPrice)">€ {{ pricePerSquareMeter }}</span>
+        <span v-if="!Number.isNaN(totalPrice)">€ {{ totalPrice }}</span>
         <span v-else><v-icon icon="fa-solid fa-ban" size="sm" class="pb-2"></v-icon></span>
       </div>
     </v-card-title>
