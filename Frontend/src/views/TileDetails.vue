@@ -157,6 +157,18 @@ export default {
 
         <div class="total-price d-flex flex-row align-start justify-space-between w-100 ga-4">
           <v-text-field
+              variant="outlined"
+              prefix="€"
+              type="number" min="0.00" max="10000.00" step="0.5"
+              width="60%"
+              name="pricePerSquareMeter"
+              label="Prijs per m²"
+              color="secondary"
+              v-model="this.tile.pricePerSquareMeter"
+              @focus="$event.target.select()"
+              @input="CalculatePriceTotal"
+          ></v-text-field>
+          <v-text-field
             variant="outlined"
             color="secondary"
             width="40%"
@@ -166,18 +178,6 @@ export default {
             v-model="this.totalPrice"
             @input="CalculatePricePerSquareMeter"
             @focus="$event.target.select()"
-          ></v-text-field>
-          <v-text-field
-            variant="outlined"
-            prefix="€"
-            type="number" min="0.00" max="10000.00" step="0.5"
-            width="60%"
-            name="pricePerSquareMeter"
-            label="Prijs per m²"
-            color="secondary"
-            v-model="this.tile.pricePerSquareMeter"
-            @focus="$event.target.select()"
-            @input="CalculatePriceTotal"
           ></v-text-field>
         </div>
 
