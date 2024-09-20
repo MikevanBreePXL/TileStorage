@@ -26,12 +26,15 @@ export default {
                 store.getTileById(parseInt(this.tileId))
               );
     }
-    console.log(tile);
+    let totalPrice = null;
+    if (!Number.isNaN(tile.pricePerSquareMeter * tile.totalSquareMeters)) {
+      totalPrice = tile.pricePerSquareMeter * tile.totalSquareMeters;
+    }
 
     return {
       store,
       tile,
-      totalPrice: Number.isNaN(tile.pricePerSquareMeter * tile.totalSquareMeters) ? 0 : tile.pricePerSquareMeter * tile.totalSquareMeters,
+      totalPrice,
       dialog: false,
     };
   },
@@ -44,11 +47,7 @@ export default {
       document.getElementById('form-buttons').classList.add('animate__animated', 'animate__fadeOut');
       this.tile.pricePerSquareMeter = parseFloat(this.tile.pricePerSquareMeter);
 
-      console.log("saved result:");
-      console.log(this.tile);
-
       await this.store.addOrUpdateTile(this.tile);
-
       setTimeout(() => {
         this.$router.back();
       }, 1000);
@@ -59,7 +58,6 @@ export default {
       
       this.store.removeTile(this.tile.id);
       this.dialog = false;
-      
       setTimeout(() => {
         this.$router.back();
       }, 1000);
@@ -151,7 +149,7 @@ export default {
           label="Totaal m²"
           color="secondary"
           v-model="this.tile.totalSquareMeters"
-          @input="CalculatePriceTotal(); CalculateAmountOfBoxes();"
+          @input="CalculatePriceTotal; CalculateAmountOfBoxes;"
           @focus="$event.target.select()"
         ></v-text-field>
 
@@ -160,7 +158,7 @@ export default {
               variant="outlined"
               prefix="€"
               type="number" min="0.00" max="10000.00" step="0.5"
-              width="60%"
+              width="50%"
               name="pricePerSquareMeter"
               label="Prijs per m²"
               color="secondary"
@@ -171,7 +169,7 @@ export default {
           <v-text-field
             variant="outlined"
             color="secondary"
-            width="40%"
+            width="50%"
             prefix="€"
             type="number"
             label="Totaalprijs"
