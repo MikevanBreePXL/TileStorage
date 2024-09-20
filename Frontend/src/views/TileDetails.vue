@@ -84,8 +84,17 @@ export default {
     <TopLogoBar />
     <div id="details-form" class="animate__animated">
       <div class="w-90 mx-auto mt-10 d-flex flex-column justify-center align-center">
+        <div id="tile-image" class="d-flex flex-column justify-center align-center">
+          <v-img src=""></v-img>
+          <v-file-input
+              variant="solo"
+              width="80%"
+              density="compact"
+          ></v-file-input>
+        </div>
         <v-text-field
-          variant="outlined"
+          variant="underlined"
+          density="compact"
           width="100%"
           name="tileName"
           label="Tegelnaam"
@@ -96,7 +105,8 @@ export default {
 
         <div class="tile-size d-flex flex-row justify-center align-center w-100">
           <v-text-field
-            variant="outlined"
+            variant="underlined"
+            density="compact"
             name="tileWidth"
             label="Breedte"
             color="secondary"
@@ -106,7 +116,8 @@ export default {
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
-            variant="outlined"
+            variant="underlined"
+            density="compact"
             name="tileLength"
             label="Lengte"
             color="secondary"
@@ -118,7 +129,8 @@ export default {
       
         <div class="boxes d-flex flex-row align-center w-100">
           <v-text-field
-            variant="outlined"
+            variant="underlined"
+            density="compact"
             width="50%"
             name="amountOfBoxes"
             label="Aantal dozen"
@@ -130,7 +142,8 @@ export default {
           ></v-text-field>
           <span class="mx-2">x</span>
           <v-text-field
-            variant="outlined"
+            variant="underlined"
+            density="compact"
             width="50%"
             name="squareMetersPerBox"
             label="m² per doos"
@@ -143,7 +156,8 @@ export default {
         </div>
 
         <v-text-field
-          variant="outlined"
+          variant="underlined"
+          density="compact"
           width="100%"
           name="totalSquareMeters"
           label="Totaal m²"
@@ -155,7 +169,8 @@ export default {
 
         <div class="total-price d-flex flex-row align-start justify-space-between w-100 ga-4">
           <v-text-field
-              variant="outlined"
+              variant="underlined"
+              density="compact"
               prefix="€"
               type="number" min="0.00" max="10000.00" step="0.5"
               width="50%"
@@ -167,7 +182,8 @@ export default {
               @input="CalculatePriceTotal"
           ></v-text-field>
           <v-text-field
-            variant="outlined"
+            variant="underlined"
+            density="compact"
             color="secondary"
             width="50%"
             prefix="€"
