@@ -15,7 +15,7 @@ export default defineConfig({
         short_name: 'VBTegels',
         description: 'A custom Vue 3 SPA',
         theme_color: '#073077',
-        start_url: '/TileStorage/',
+        start_url: '',
         background_color: '#242424',
         icons: [
           {
