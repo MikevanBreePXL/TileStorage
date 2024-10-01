@@ -12,6 +12,8 @@ export default {
     return {
       store,
       list: null,
+      searchActive: false,
+      searchText: null,
     }
   },
   components: {
@@ -19,6 +21,17 @@ export default {
     CustomTileCard,
     TopLogoBar,
     TileInfoCard,
+  },
+  methods: {
+    search(e) {
+      this.list = this.store.tiles.filter(tile => tile.tilename.toLowerCase().includes(e.target.value.toLowerCase()));
+    },
+    searchUnfocused() {
+      if (this.searchText === null || this.searchText.length === 0) {
+        console.log("Bye bye");
+        this.searchActive = false;
+      }
+    }
   },
   async beforeMount() {
     await this.store.loadTiles();
@@ -51,11 +64,31 @@ export default {
     <TopLogoBar/>
     <div class="list d-flex flex-column ga-2 justify-center align-center">
       <NewTileCard class="animate__animated fadeInLeft" :to="{ name: 'TileDetails', params: { tileId: 'new' }}"/>
-      <TileInfoCard class="animate__animated fadeInLeft" style="animation-delay: 250ms"/>
+
+      <TileInfoCard id="info-card" v-if="!searchActive" @click="searchActive = !searchActive" class="animate__animated fadeInLeft" style="animation-delay: 250ms"/>
+        <v-text-field
+            v-else
+            prepend-inner-icon="fa-solid fa-magnifying-glass"
+            color="secondary"
+            width="90%"
+            variant="solo"
+            theme="light"
+            hide-details="auto"
+            v-model="searchText"
+            @input="search"
+            @update:focused="(isFocused) => {
+              if (!isFocused) {
+                console.log('Hello!');
+                this.searchUnfocused();
+              }
+            }"
+        ></v-text-field>
+
       <div v-for="(tile, index) in this.list" :key="tile.id">
         <RouterLink :to="{ name: 'TileDetails', params: { tileId: tile.id }}">
           <CustomTileCard class="animate__animated fadeInLeft" :style="'animation-delay: ' + (250 * index + 250) + 'ms'"
-                          height="100%" :name="tile.tilename"
+                          height="100%" width="90vw"
+                          :name="tile.tilename"
                           :tileWidth="parseFloat(tile.width)" :tileLength="parseFloat(tile.length)"
                           :amountOfBoxes="parseFloat(tile.amountOfBoxes)"
                           :squareMetersPerBox="((Math.round(100 * tile.squareMetersPerBox)) / 100.0)"

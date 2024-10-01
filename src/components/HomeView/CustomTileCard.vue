@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <v-card width="90vw" height="100%" class="py-0 d-flex flex-column">
+  <v-card class="py-0 d-flex flex-column">
     <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
       <div class=" d-flex flex-row justify-space-between align-center">
         <span id="tile-name">{{ name }}</span>
