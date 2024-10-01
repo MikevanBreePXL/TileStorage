@@ -42,6 +42,15 @@ export default {
     TopLogoBar,
   },
   methods: {
+    uploadImage(e){
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = e =>{
+        this.tile.image = e.target.result;
+        console.log(this.tile.image);
+      };
+    },
     async saveTile() {
       document.getElementById('details-form').classList.add('fadeOutRight');
       document.getElementById('form-buttons').classList.add('animate__animated', 'animate__fadeOut');
@@ -85,14 +94,26 @@ export default {
   <div id="details-page" class="details-page d-flex flex-column">
     <TopLogoBar />
     <div id="details-form" class="animate__animated">
-      <div class="w-90 mx-auto mt-10 d-flex flex-column justify-center align-center">
+      <div class="w-90 mx-auto d-flex flex-column justify-center align-center">
         <div id="tile-image" class="d-flex flex-column justify-center align-center">
-          <v-img src=""></v-img>
+          <img :src="tile.image" v-if="tile.image" class="image flex-1-1 pt-5" max-width="80" alt=""></img>
           <v-file-input
-              variant="solo"
-              width="80%"
+              label="Afbeelding kiezen"
+              variant="outlined"
+              prepend-icon="fa-solid fa-camera"
+              theme="light"
+              class="mt-5"
+              width="85vw"
               density="compact"
-          ></v-file-input>
+              clearable
+              accept="image/png, image/jpeg, image/bmp"
+              :rules="[value => {
+                return !value || !value.length || value[0].size < 5000000 || 'Maximale bestandsgrootte is 5MB';
+              }]"
+              @change="uploadImage"
+              @click:clear="tile.image = ''"
+          >
+          </v-file-input>
         </div>
         <v-text-field
           variant="underlined"
@@ -264,6 +285,12 @@ export default {
 
 .details-page {
   height: 100vh;
+}
+
+.image {
+  height: 10em;
+  max-width: 80vw;
+  max-height: 15em;
 }
 
 .buttons {
