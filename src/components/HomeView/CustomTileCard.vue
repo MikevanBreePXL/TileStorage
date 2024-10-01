@@ -18,10 +18,11 @@ export default {
   <v-card class="py-0 d-flex flex-row">
     <v-img
         :src="image"
-        class="ml-3"
+        class="ml-3 py-2"
         max-width="12vw"
         width="12vw"
         height="auto"
+        max-height="12em"
         contain
         alt="Thumbnail"
       ></v-img>
