@@ -22,7 +22,7 @@ import fs from "fs";
     }
     await execa("git", ["branch", "gh-pages"]);
     console.log("Pushing to gh-pages...");
-    await execa("git", ["subtree", "push", "\-\-prefix\=Frontend\/dist", "origin", "gh\-pages"], { cwd: ".." });
+    await execa("git", ["subtree", "push", "\-\-prefix\=dist", "origin", "gh\-pages"]);
     await execa("git", ["reset", "HEAD~1", "--mixed"]);
 
     await execa("git", ["branch", "-D", "gh-pages"]);
