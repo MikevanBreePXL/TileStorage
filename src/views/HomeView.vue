@@ -88,7 +88,7 @@ export default {
         <RouterLink :to="{ name: 'TileDetails', params: { tileId: tile.id }}">
           <CustomTileCard class="animate__animated fadeInLeft" :style="'animation-delay: ' + (250 * index + 250) + 'ms'"
                           height="100%" width="90vw"
-                          :name="tile.tilename"
+                          :name="tile.tilename" :image="tile.image"
                           :tileWidth="parseFloat(tile.width)" :tileLength="parseFloat(tile.length)"
                           :amountOfBoxes="parseFloat(tile.amountOfBoxes)"
                           :squareMetersPerBox="((Math.round(100 * tile.squareMetersPerBox)) / 100.0)"
