@@ -15,17 +15,17 @@ export default {
 </script>
 
 <template>
-  <v-card class="py-0 d-flex flex-row">
-    <v-img
-        :src="image"
-        class="ml-3 py-2"
-        max-width="12vw"
-        width="12vw"
-        height="auto"
-        max-height="12em"
-        contain
-        alt="Thumbnail"
-      ></v-img>
+  <v-card class="py-0 d-flex flex-row align-center">
+    <div class="px-2 bg-grey-darken-3 d-flex h-100" style="height: 100%; border: solid 1px #424242">
+      <v-img
+          :src="image"
+          max-width="50"
+          width="50"
+          height="100"
+          max-height="12em"
+          alt="Thumbnail"
+        ></v-img>
+    </div>
     <div class="d-flex flex-column w-80">
       <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
         <div class=" d-flex flex-row justify-space-between align-center">
