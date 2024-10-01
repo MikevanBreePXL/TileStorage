@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
+      base: '/TileStorage/',
       injectRegister: 'auto',
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
@@ -15,29 +16,28 @@ export default defineConfig({
         short_name: 'VBTegels',
         description: 'A custom Vue 3 SPA',
         theme_color: '#073077',
-        start_url: '',
         background_color: '#242424',
         icons: [
           {
-            src: "/pwa-192x192.png",
+            src: "/TileStorage/pwa-192x192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any"
           },
           {
-            src: "/pwa-512x512.png",
+            src: "/TileStorage/pwa-512x512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any"
           },
           {
-            src: "/pwa-maskable-192x192.png",
+            src: "/TileStorage/pwa-maskable-192x192.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "maskable"
           },
           {
-            src: "/pwa-maskable-512x512.png",
+            src: "/TileStorage/pwa-maskable-512x512.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "maskable"
