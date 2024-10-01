@@ -17,9 +17,6 @@ export default {
   beforeUnmount() {
     window.removeEventListener('online', () => this.isOnline = true)
     window.removeEventListener('offline', () => this.isOnline = false)
-  },
-  created: async function () {
-    await this.store.loadTiles();
   }
 }
 </script>

@@ -49,6 +49,7 @@ export default {
 
       await this.store.addOrUpdateTile(this.tile);
       setTimeout(() => {
+        this.store.saveTiles();
         this.$router.back();
       }, 1000);
     },
@@ -59,21 +60,22 @@ export default {
       this.store.removeTile(this.tile.id);
       this.dialog = false;
       setTimeout(() => {
+        this.store.saveTiles();
         this.$router.back();
       }, 1000);
     },
     CalculateTotalSquareMeters() {
-      this.tile.totalSquareMeters = ((parseFloat(this.tile.squareMetersPerBox * 100) * parseFloat(this.tile.amountOfBoxes * 100)) / 10000);
+      this.tile.totalSquareMeters = (this.tile.squareMetersPerBox * this.tile.amountOfBoxes ).toFixed(2);
       this.CalculatePriceTotal();
     },
     CalculatePriceTotal() {
-      this.totalPrice = (((this.tile.pricePerSquareMeter * 100) * (this.tile.totalSquareMeters * 100)) / 10000).toFixed(2);
+      this.totalPrice = (this.tile.pricePerSquareMeter * this.tile.totalSquareMeters).toFixed(2);
     },
     CalculatePricePerSquareMeter() {
-      this.tile.pricePerSquareMeter = ((this.totalPrice * 100) / (this.tile.totalSquareMeters * 100)).toFixed(2);
+      this.tile.pricePerSquareMeter = (this.totalPrice / this.tile.totalSquareMeters).toFixed(2);
     },
     CalculateAmountOfBoxes() {
-      this.tile.amountOfBoxes = ((this.tile.totalSquareMeters * 100) / (this.tile.squareMetersPerBox * 100)).toFixed(2);
+      this.tile.amountOfBoxes = (this.tile.totalSquareMeters / this.tile.squareMetersPerBox).toFixed(2);
     }
   }
 };

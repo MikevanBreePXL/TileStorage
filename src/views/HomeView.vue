@@ -11,6 +11,7 @@ export default {
     let store = useTilesStore();
     return {
       store,
+      list: null,
     }
   },
   components: {
@@ -18,6 +19,10 @@ export default {
     CustomTileCard,
     TopLogoBar,
     TileInfoCard,
+  },
+  async beforeMount() {
+    await this.store.loadTiles();
+    this.list = this.store.tiles;
   },
   mounted() {
     // Listen for visibility change (minimized/visible)
@@ -47,9 +52,9 @@ export default {
     <div class="list d-flex flex-column ga-2 justify-center align-center">
       <NewTileCard class="animate__animated fadeInLeft" :to="{ name: 'TileDetails', params: { tileId: 'new' }}"/>
       <TileInfoCard class="animate__animated fadeInLeft" style="animation-delay: 250ms"/>
-      <div v-for="(tile, index) in this.store.tiles" :key="tile.id">
+      <div v-for="(tile, index) in this.list" :key="tile.id">
         <RouterLink :to="{ name: 'TileDetails', params: { tileId: tile.id }}">
-          <CustomTileCard class="animate__animated fadeInLeft" :style="'animation-delay: ' + (250 * index + 500) + 'ms'"
+          <CustomTileCard class="animate__animated fadeInLeft" :style="'animation-delay: ' + (250 * index + 250) + 'ms'"
                           height="100%" :name="tile.tilename"
                           :tileWidth="parseFloat(tile.width)" :tileLength="parseFloat(tile.length)"
                           :amountOfBoxes="parseFloat(tile.amountOfBoxes)"
