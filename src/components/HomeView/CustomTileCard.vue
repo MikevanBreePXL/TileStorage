@@ -15,8 +15,8 @@ export default {
 </script>
 
 <template>
-  <v-card class="py-0 d-flex flex-row align-center">
-    <div class="px-2 bg-grey-darken-3 d-flex h-100" style="height: 100%; border: solid 1px #424242">
+  <v-card class="py-0 d-flex flex-row justify-center align-center">
+    <div class="px-2">
       <v-img
           :src="image"
           max-width="50"
@@ -24,7 +24,14 @@ export default {
           height="100"
           max-height="12em"
           alt="Thumbnail"
-        ></v-img>
+        >
+        <template v-slot:placeholder>
+          <v-img
+              class="mx-1 place-holder-image"
+              src="https://www.svgrepo.com/show/340721/no-image.svg"
+          ></v-img>
+        </template>
+      </v-img>
     </div>
     <div class="d-flex flex-column w-80">
       <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
@@ -67,6 +74,11 @@ span {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 70%;
+}
+
+.place-holder-image {
+  display: block;
+  margin-block: 55%;
 }
 
 .card-text {
