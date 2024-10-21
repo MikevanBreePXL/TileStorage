@@ -20,6 +20,7 @@ export default {
         squareMetersPerBox: null,
         totalSquareMeters: null,
         pricePerSquareMeter: null,
+        image: null,
       };
     } else {
       tile = Object.assign(
