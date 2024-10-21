@@ -34,7 +34,7 @@ export default {
           </template>
         </v-img>
     </template>
-    <div class="d-flex flex-column w-90">
+    <div class="d-flex flex-column w-80">
       <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
         <div class=" d-flex flex-row justify-space-between align-center">
           <span id="tile-name">{{ name }}</span>
@@ -55,9 +55,9 @@ export default {
 </template>
 
 <style scoped>
-.w-90 {
-  width: 90%;
-  max-width: 90%;
+.w-80 {
+  width: 80%;
+  max-width: 80%;
 }
 
 p {
