@@ -50,7 +50,6 @@ export default {
       reader.readAsDataURL(image);
       reader.onload = e =>{
         this.tile.image = e.target.result;
-        console.log(this.tile.image);
       };
     },
     removeImage() {
@@ -64,7 +63,7 @@ export default {
       const blob = new Blob([this.tile.image], { type: 'image/png' })
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = this.tile.image.split(';')[0];
+      link.download = "VB_" + this.tile.tilename.replaceAll(" ", "_") + ".png";
       link.click();
     },
     async saveTile() {
