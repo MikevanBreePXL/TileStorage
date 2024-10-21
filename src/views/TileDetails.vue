@@ -22,9 +22,10 @@ export default {
         pricePerSquareMeter: null,
       };
     } else {
-      tile = Object.assign({},
-                store.getTileById(parseInt(this.tileId))
-              );
+      tile = Object.assign(
+        {},
+        store.getTileById(parseInt(this.tileId))
+      );
     }
     let totalPrice = null;
     if (!Number.isNaN(tile.pricePerSquareMeter * tile.totalSquareMeters)) {
@@ -50,6 +51,20 @@ export default {
         this.tile.image = e.target.result;
         console.log(this.tile.image);
       };
+    },
+    removeImage() {
+      document.getElementById('image-view').classList.add('animate__animated', 'animate__fadeOutRight');
+      setTimeout(() => {
+        this.tile.image = '';
+        document.getElementById('image-view').classList.remove('animate__animated', 'animate__fadeOutRight');
+      }, 1000);
+    },
+    downloadImage() {
+      const blob = new Blob([this.tile.image], { type: 'image/png' })
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = this.tile.image.split(';')[0];
+      link.click();
     },
     async saveTile() {
       document.getElementById('details-form').classList.add('fadeOutRight');
@@ -96,7 +111,15 @@ export default {
     <div id="details-form" class="animate__animated">
       <div class="w-90 mx-auto d-flex flex-column justify-center align-center">
         <div id="tile-image" class="d-flex flex-column justify-center align-center">
-          <img :src="tile.image" v-if="tile.image" class="image flex-1-1 pt-5" max-width="80" alt=""></img>
+          <div id="image-view" class="ml-1">
+            <img :src="tile.image" class="image flex-1-1 pt-5" max-width="80" alt=""></img>
+            <v-fab
+              v-if="tile.image"
+              icon="fa-solid fa-download"
+              color="grey-darken-3"
+              @click="downloadImage"
+            ></v-fab>
+          </div>
           <v-file-input
               label="Afbeelding kiezen"
               variant="outlined"
@@ -105,14 +128,19 @@ export default {
               class="mt-5"
               width="85vw"
               density="compact"
-              clearable
               accept="image/png, image/jpeg, image/bmp"
               :rules="[value => {
                 return !value || !value.length || value[0].size < 5000000 || 'Maximale bestandsgrootte is 5MB';
               }]"
               @change="uploadImage"
-              @click:clear="tile.image = ''"
+              @click:append="tile.image = ''"
           >
+              <template #append>
+                <v-icon
+                  @click="removeImage"
+                  icon="fa-solid fa-trash-can"
+                />
+              </template>
           </v-file-input>
         </div>
         <v-text-field

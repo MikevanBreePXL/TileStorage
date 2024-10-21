@@ -16,24 +16,25 @@ export default {
 
 <template>
   <v-card class="py-0 d-flex flex-row justify-center align-center">
-    <div class="px-2">
-      <v-img
-          :src="image"
-          max-width="50"
-          width="50"
-          height="100"
-          max-height="12em"
-          alt="Thumbnail"
-        >
-        <template v-slot:placeholder>
-          <v-img
-              class="mx-1 place-holder-image"
-              src="https://www.svgrepo.com/show/340721/no-image.svg"
-          ></v-img>
-        </template>
-      </v-img>
-    </div>
-    <div class="d-flex flex-column w-80">
+    <template #prepend>
+        <v-img
+            class="ml-4"
+            :src="image"
+            max-width="50"
+            width="50"
+            height="100"
+            max-height="12em"
+            alt="Thumbnail"
+          >
+          <template v-slot:placeholder>
+            <v-img
+                class="mx-1 place-holder-image"
+                src="https://www.svgrepo.com/show/340721/no-image.svg"
+            ></v-img>
+          </template>
+        </v-img>
+    </template>
+    <div class="d-flex flex-column w-90">
       <v-card-title class="pb-0 pt-2 text-primary-darken-1" primary-title>
         <div class=" d-flex flex-row justify-space-between align-center">
           <span id="tile-name">{{ name }}</span>
@@ -54,9 +55,9 @@ export default {
 </template>
 
 <style scoped>
-.w-80 {
-  width: 80%;
-  max-width: 80%;
+.w-90 {
+  width: 90%;
+  max-width: 90%;
 }
 
 p {
