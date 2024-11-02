@@ -44,8 +44,16 @@ export default {
     TopLogoBar,
   },
   methods: {
-    takePicture(e) {
+    async takePicture(e) {
       //<input type="file" accept="image/*" @change="uploadImage" style="display: inline-block; height: 100%; width: 100%;">
+
+      // explicit permission to access the camera (PWA Mobile permissions) 
+      await navigator.mediaDevices.getUserMedia({ video: true })
+      .catch(e => {
+        alert('error trying to access the camera:\n\n' + e);
+        throw e;
+      });
+
       const input = document.createElement('input');
       input.type = 'file';
       input.accept = 'image/*';
