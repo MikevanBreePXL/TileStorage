@@ -43,27 +43,21 @@ export default {
   components: {
     TopLogoBar,
   },
+  mounted() {
+    this.requestCameraPermission();
+  },
   methods: {
-    async getPicture(e) {
-      //<input type="file" accept="image/*" @change="uploadImage" style="display: inline-block; height: 100%; width: 100%;">
-
+    async requestCameraPermission() {
       // explicit permission to access the camera (PWA Mobile permissions) 
       await navigator.permissions.query({ name: 'camera' })
-        .then(permission => console.log(permission));
-
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.onchange = e => {
-        const image = e.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(image);
-        reader.onload = e =>{
-          console.log('result', e.target.result);
-          this.tile.image = e.target.result;
-        };
+    },
+    uploadImage(e){
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = e =>{
+        this.tile.image = e.target.result;
       };
-      input.click();
     },
     removeImage() {
       document.getElementById('image-view').classList.add('animate__animated', 'animate__fadeOutRight');
@@ -140,7 +134,7 @@ export default {
               :rules="[value => {
                 return !value || !value.length || value[0].size < 10000000 || 'Maximale bestandsgrootte is 10MB';
               }]"
-              @change="getPicture"
+              @change="uploadImage"
               @click:append="removeImage"
           >
           </v-file-input>
