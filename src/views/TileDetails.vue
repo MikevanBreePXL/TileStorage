@@ -48,11 +48,8 @@ export default {
       //<input type="file" accept="image/*" @change="uploadImage" style="display: inline-block; height: 100%; width: 100%;">
 
       // explicit permission to access the camera (PWA Mobile permissions) 
-      await navigator.mediaDevices.getUserMedia({ video: true })
-      .catch(e => {
-        alert('error trying to access the camera:\n\n' + e);
-        throw e;
-      });
+      await navigator.permissions.query({ name: 'camera' })
+        .then(permission => console.log(permission));
 
       const input = document.createElement('input');
       input.type = 'file';
@@ -63,6 +60,7 @@ export default {
         reader.readAsDataURL(image);
         reader.onload = e =>{
           console.log('result', e.target.result);
+          this.tile.image = e.target.result;
         };
       };
       input.click();
@@ -136,17 +134,11 @@ export default {
         <div id="tile-image" class="d-flex flex-column justify-center align-center">
           <div id="image-view" class="ml-1">
             <img :src="tile.image" class="image flex-1-1 pt-5" max-width="80" alt=""></img>
-            <v-fab
-              v-if="tile.image"
-              icon="fa-solid fa-download"
-              color="grey-darken-3"
-              @click="downloadImage"
-            ></v-fab>
           </div>
           <v-file-input
               label="Afbeelding kiezen"
               variant="outlined"
-              prepend-icon="fa-solid fa-image"
+              prepend-icon="fa-solid fa-camera"
               append-icon="fa-solid fa-trash-can"
               theme="light"
               class="mt-5"
@@ -156,16 +148,9 @@ export default {
               :rules="[value => {
                 return !value || !value.length || value[0].size < 10000000 || 'Maximale bestandsgrootte is 10MB';
               }]"
-              @change="uploadImage"
+              @change="takePicture"
               @click:append="removeImage"
           >
-          <template #prepend>
-            <v-icon
-              icon="fa-solid fa-camera"
-              class="mr-5"
-              @click="takePicture"
-            />
-          </template>
           </v-file-input>
         </div>
         <v-text-field
