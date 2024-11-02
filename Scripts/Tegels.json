@@ -1,0 +1,6 @@
+[
+    {"tilename":"Azteca Delhi 120 ash rect","width":"60","length":"120","amountOfBoxes":"13","squareMetersPerBox":"1.44","totalSquareMeters":18.72,"pricePerSquareMeter":10,"id":43,"imagePath":"tile_43"},
+    {"id":44,"tilename":"Azteca Moonlight Lux 120 black","width":"60","length":"120","amountOfBoxes":"10","squareMetersPerBox":"1.44","totalSquareMeters":14.4,"pricePerSquareMeter":10},
+    {"tilename":"Azteca Moonlight Lux 120 black","width":"30","length":"120","amountOfBoxes":"10","squareMetersPerBox":"1.44","totalSquareMeters":14.4,"pricePerSquareMeter":10,"id":45},
+    {"tilename":"Azteca Moonlight Lux 120 black","width":"60","length":"120","amountOfBoxes":"10","squareMetersPerBox":"1.44","totalSquareMeters":14.4,"pricePerSquareMeter":10,"id":46}
+]

@@ -74,7 +74,7 @@ export const useTilesStore = defineStore(STORE_NAME, {
       this.tiles = this.tiles.filter(tile => tile.id !== id);
     },
     exportData() {
-      return {...this.tiles};
+      return [...this.tiles];
     }
   }
 });
