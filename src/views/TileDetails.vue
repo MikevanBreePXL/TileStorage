@@ -44,6 +44,21 @@ export default {
     TopLogoBar,
   },
   methods: {
+    takePicture(e) {
+      //<input type="file" accept="image/*" @change="uploadImage" style="display: inline-block; height: 100%; width: 100%;">
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = e => {
+        const image = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(image);
+        reader.onload = e =>{
+          console.log('result', e.target.result);
+        };
+      };
+      input.click();
+    },
     uploadImage(e){
       const image = e.target.files[0];
       const reader = new FileReader();
@@ -123,24 +138,26 @@ export default {
           <v-file-input
               label="Afbeelding kiezen"
               variant="outlined"
-              prepend-icon="fa-solid fa-camera"
+              prepend-icon="fa-solid fa-image"
+              append-icon="fa-solid fa-trash-can"
               theme="light"
               class="mt-5"
               width="85vw"
               density="compact"
               accept="image/png, image/jpeg, image/bmp"
               :rules="[value => {
-                return !value || !value.length || value[0].size < 5000000 || 'Maximale bestandsgrootte is 5MB';
+                return !value || !value.length || value[0].size < 10000000 || 'Maximale bestandsgrootte is 10MB';
               }]"
               @change="uploadImage"
-              @click:append="tile.image = ''"
+              @click:append="removeImage"
           >
-              <template #append>
-                <v-icon
-                  @click="removeImage"
-                  icon="fa-solid fa-trash-can"
-                />
-              </template>
+          <template #prepend>
+            <v-icon
+              icon="fa-solid fa-camera"
+              class="mr-5"
+              @click="takePicture"
+            />
+          </template>
           </v-file-input>
         </div>
         <v-text-field
