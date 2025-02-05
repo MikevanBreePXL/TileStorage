@@ -67,9 +67,8 @@ export default {
       }, 1000);
     },
     downloadImage() {
-      const blob = new Blob([this.tile.image], { type: 'image/png' })
       const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
+      link.href = this.tile.image;
       link.download = "VB_" + this.tile.tilename.replaceAll(" ", "_") + ".png";
       link.click();
     },
@@ -118,8 +117,15 @@ export default {
     <div id="details-form" class="animate__animated">
       <div class="w-90 mx-auto d-flex flex-column justify-center align-center">
         <div id="tile-image" class="d-flex flex-column justify-center align-center">
-          <div id="image-view" class="ml-1">
-            <img :src="tile.image" class="image flex-1-1 pt-5" max-width="80" alt=""></img>
+          <div id="image-view" class="ml-1 d-flex flex-column w-80">
+            <img :src="tile.image" class="image mx-auto pt-5" alt=""></img>
+            <v-btn
+              color="secondary"
+              block
+              @click="downloadImage()"
+            >
+              <v-icon>fa-download</v-icon>
+            </v-btn>
           </div>
           <v-file-input
               label="Afbeelding kiezen"
