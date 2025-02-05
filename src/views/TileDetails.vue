@@ -117,7 +117,7 @@ export default {
     <div id="details-form" class="animate__animated">
       <div class="w-90 mx-auto d-flex flex-column justify-center align-center">
         <div id="tile-image" class="d-flex flex-column justify-center align-center">
-          <div id="image-view" class="ml-1 d-flex flex-column w-80">
+          <div v-if="tile.image" id="image-view" class="ml-1 d-flex flex-column w-80">
             <img :src="tile.image" class="image mx-auto pt-5" alt=""></img>
             <v-btn
               color="secondary"
